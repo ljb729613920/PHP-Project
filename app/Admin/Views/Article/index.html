@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>拼图后台管理-后台管理</title>
+    <link rel="stylesheet" href="/public/admin/css/pintuer.css">
+    <link rel="stylesheet" href="/public/admin/css/admin.css">
+    <script src="/public/admin/js/jquery.js"></script>
+    <script src="/public/admin/js/pintuer.js"></script>
+    <script src="/public/admin/js/respond.js"></script>
+    <script src="/public/admin/js/admin.js"></script>
+    <script src="/public/admin/js/admin.js"></script>
+    <link type="image/x-icon" href="/favicon.ico" rel="shortcut icon" />
+    <link href="/favicon.ico" rel="bookmark icon" />
+    <link href="/public/bootstrap/css/bootstrap-pages.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div class="lefter">
+    <div class="logo"><a href="index.php?g=admin&c=index&a=index" target="_blank"><img src="/public/admin/images/logo.png" alt="后台管理系统" /></a></div>
+</div>
+<{include file="../common/menu.html" active="3" sub='3001'}>
+    <div class="admin-bread">
+        <span>您好，<{$smarty.session.userInfo.a_truename}>，欢迎您的光临。</span>
+        <ul class="bread">
+            <li><a href="index.php?g=admin&c=index&a=index" class="icon-home"> 开始</a></li>
+            <li>文章管理</li>
+        </ul>
+    </div>
+    </div>
+    </div>
+
+<div class="admin">
+	<form action="#" method="post">
+    <div class="panel admin-panel">
+    	<div class="panel-head"><strong>文章列表</strong></div>
+        <div class="padding border-bottom">
+            <input type="button" class="button button-small checkall" name="checkall" checkfor="id[]" value="全选" />
+            <input type="button" id="btnAdd" class="button button-small border-green" value="添加文章" onclick="window.location='index.php?g=admin&c=Article&a=addUi'"/>
+            <input type="button" class="button button-small border-yellow"  onclick="delRows()" value="批量删除" />
+            <script type="text/javascript">
+                function delRows(){
+                    var ids = '';
+                    var objs = document.getElementsByName('ids');
+                    for(var i=0;i<objs.length;i++){
+                        if (objs[i].checked) {
+                            ids += objs[i].value+',';
+                        }
+                    }
+                     window.location='index.php?g=admin&c=article&a=del&id='+ids;
+                }
+
+            </script>
+            <input type="button" class="button button-small border-blue" id="trash" value="回收站"  onclick="window.location='index.php?g=admin&c=article&a=trash'"/>
+        </div>
+        <table class="table table-hover" id="tab">
+        	<tr>
+                <th width="45">选择</th>
+                <th width="120">所属类别</th>
+                <th width="*">文章标题</th>
+                <th width="120">点击率</th>
+                <th width="100">推荐</th>
+                <th width="180">发布时间</th>
+                <th width="100">操作</th>
+            </tr>
+            <{foreach $data as $v}>
+            <tr>
+                <td><input type="checkbox" name="ids" id="ids" value="<{$v.a_id}>" /></td>
+                <td><{$v.a_category}></td>
+                <td><{$v.a_title}></td>
+                <td><{$v.a_hits}></td>
+                <td>
+                    <{if $v.a_top eq 0}>
+                    <a class="button border-red button-little" href="index.php?g=admin&c=Article&a=recommend&id=<{$v.a_id}>" id="recommend">推荐</a>
+                    <{else}>
+                    <a class="button border-yellow button-little" href="index.php?g=admin&c=Article&a=recommend&id=<{$v.a_id}>">取消推荐</a>
+                    <{/if}>
+                </td>
+                <td><{$v.a_last_time|date_format:'Y-m-d H:i:s'}></td>
+                <td>
+                    <a class="button border-blue button-little" href="index.php?g=admin&c=article&a=modify&id=<{$v.a_id}>">修改</a>
+                    <a class="button border-yellow button-little" href="index.php?g=admin&c=article&a=del&id=<{$v.a_id}>" onclick="return confirm('确认删除么？');">删除</a>
+                </td>
+            </tr>
+            <{/foreach}>
+            <tfoot>
+                <tr>
+                    <td colspan='6'>
+                       <div class="pagination" id='pagination'>
+                            <{$pages}>
+                        </div>
+                    </td>
+                </tr>
+
+            </tfoot>
+        </table>
+    </div>
+    </form>
+</div>
+
+</body>
+</html>

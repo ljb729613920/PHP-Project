@@ -56,7 +56,7 @@
             <tbody>
                 <{foreach $data as $k=>$v}>
                 <tr>
-                    <td><{str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v.lv)}><{$v.c_name}></td>
+                    <td><{str_repeat('--',$v.lv)}><{$v.c_name}></td>
                     <td><{$v.c_desc}></td>
                     <td><{$v.c_create_time|date_format:'Y-m-d H:i:s'}></td>
                     <td><{$v.c_sort}></td>

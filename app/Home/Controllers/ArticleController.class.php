@@ -4,6 +4,7 @@ namespace app\home\controllers;
 use frame\core\Controller;
 use app\home\models\ArticleModel;
 use app\home\models\CategoryModel;
+use app\home\models\UserModel;
 
 class ArticleController extends Controller{
 	/**
@@ -25,6 +26,16 @@ class ArticleController extends Controller{
 		// 获取文章数据
 		$art = new ArticleModel();
 		$data= $art -> get_all($c_id,$arr['rows'],$offset);
+		// 将文章所需的专区表名和用户表名填入数据组中
+		$cate = new CategoryModel();//只需要读专区名
+		$user = new UserModel();//只需要读用户名
+		foreach($data as $k => $v){
+			$a_owner=$user -> get_one($v['a_owner']);
+			$c_name=$cate -> get_one($v['c_id']);
+			$data[$k]['a_owner']=$a_owner['u_name'];
+			$data[$k]['c_name']=$c_name['c_name'];
+		}
+
 		// 获取文章个数
 		$totalArts = $art -> get_total($c_id);
 

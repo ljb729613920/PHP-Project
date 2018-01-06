@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2018-01-06 15:04:19
+<?php /* Smarty version Smarty-3.1.16, created on 2018-01-06 23:38:28
          compiled from ".\App\home\views\article\show.html" */ ?>
 <?php /*%%SmartyHeaderCode:32465a5045c3057837-73510093%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '6e8485f2b03837dae31593d5d8f8396af588ddd0' => 
     array (
       0 => '.\\App\\home\\views\\article\\show.html',
-      1 => 1515221888,
+      1 => 1515243421,
       2 => 'file',
     ),
   ),
@@ -31,8 +31,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5a5045c30e4250_49815679')) {function content_5a5045c30e4250_49815679($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'D:\\blackhorse\\www\\blog\\frame\\Smarty\\plugins\\modifier.date_format.php';
-if (!is_callable('smarty_modifier_truncate')) include 'D:\\blackhorse\\www\\blog\\frame\\Smarty\\plugins\\modifier.truncate.php';
+<?php if ($_valid && !is_callable('content_5a5045c30e4250_49815679')) {function content_5a5045c30e4250_49815679($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'C:\\php9\\blog\\frame\\Smarty\\plugins\\modifier.date_format.php';
+if (!is_callable('smarty_modifier_truncate')) include 'C:\\php9\\blog\\frame\\Smarty\\plugins\\modifier.truncate.php';
 ?><!doctype html>
 <html>
 <head>

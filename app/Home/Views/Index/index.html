@@ -40,11 +40,11 @@
           <a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>" target="_blank" class="readmore">阅读全文&gt;&gt;</a>
         </ul>
         <p class="autor">
-        <span>作者：<{$v.a_owner}></span>
-        <span>分类：【<a href="/"><{$v.a_category}></a>】</span>
-        <span>浏览（<a href="/"><{$v.a_hits}></a>）</span>
-        <span>评论（<a href="/"><{$v.a_content}></a>）</span>
-        </p>
+        <span >作者：<{$v.a_owner}></span> </p><br/>
+        <span >分类：【<a href="/"><{$v.c_name}></a>】</span><br/>
+        <span >浏览（<a href="/"><{$v.a_hits}></a>）</span><br/>
+        <span >评论（<a href="/"><{$v.a_content}></a>）</span>
+
         <div class="dateview"><{$v.a_create_time|date_format:'Y-m-d H:i:s'}>
         </div>
       </div>

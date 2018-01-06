@@ -78,7 +78,7 @@ class ArticleModel extends Model{
 	public function update_one($arr){
 		extract($arr);
 		$time=time();
-		$sql="update blog_article set a_title='$a_title',a_desc='$a_desc',a_category='$a_category',a_desc='$a_desc',a_content='$a_content',a_last_time='$time' where a_id='$a_id'";
+		$sql="update blog_article set a_title='$a_title',a_desc='$a_desc',c_id='$c_id',a_content='$a_content',a_last_time='$time' where a_id='$a_id' and a_del=1";
 		return $this-> dbh ->my_exec($sql);
 	}
 }

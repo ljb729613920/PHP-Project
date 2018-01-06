@@ -12,6 +12,7 @@ namespace app\Admin\Controllers;
 
 use app\Admin\Models\CategoryModel;
 use app\Admin\Models\ArticleModel;
+use app\Admin\Models\AdminModel;
 use frame\core\AdminController;
 use frame\core\Pages;
 
@@ -36,9 +37,18 @@ class ArticleController extends AdminController{
 		// 获取article中的所有数据
 		$data=$art->get_all($offset,$arr['rows']);
 
+		// 将文章所需的专区表名和用户表名填入数据组中
+		$cate = new CategoryModel();//只需要读专区名
+		$admin = new AdminModel();//只需要读用户名
+		foreach($data as $k => $v){
+			$a_owner=$admin -> get_one($v['a_owner']);
+			$c_name=$cate -> get_one($v['c_id']);
+			$data[$k]['a_owner']=$a_owner['a_name'];
+			$data[$k]['c_name']=$c_name['c_name'];
+		}
+
 		// 获取article中总数
-		$res=$art->get_total();
-		$arr['totalRows']=$res['c'];
+		$arr['totalRows']=count($data);
 
 		// 页码实例化
 		$obj=new Pages($arr);
@@ -143,7 +153,7 @@ class ArticleController extends AdminController{
 		// 获取修改id
 		$arr['a_id']=isset($_POST['a_id'])? $this-> input_str($_POST['a_id']) : null ;
 		$arr['a_title']=isset($_POST['a_title'])? $this-> input_str($_POST['a_title']) : ' ' ;
-		$arr['a_category']=isset($_POST['a_category'])? $this-> input_str($_POST['a_category']) : ' ' ;
+		$arr['c_id']=isset($_POST['c_id'])? $this-> input_str($_POST['c_id']) : ' ' ;
 		$arr['a_desc']=isset($_POST['a_desc'])? $this-> input_str($_POST['a_desc']) : ' ' ;
 		$arr['a_content']=isset($_POST['a_content'])? $this-> input_str($_POST['a_content']) : ' ' ;
 		$art=new ArticleModel();

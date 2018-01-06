@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2018-01-06 14:30:01
+<?php /* Smarty version Smarty-3.1.16, created on 2018-01-06 22:46:00
          compiled from ".\App\admin\views\Category\addUi.html" */ ?>
 <?php /*%%SmartyHeaderCode:2495a506ce9b75b97-10689271%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '7e7e15d89735d0c1adc4cdb5727bf5bb7dd23a3a' => 
     array (
       0 => '.\\App\\admin\\views\\Category\\addUi.html',
-      1 => 1515198856,
+      1 => 1515249957,
       2 => 'file',
     ),
   ),
@@ -15,9 +15,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
-  'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
   'unifunc' => 'content_5a506ce9c64057_44700843',
+  'variables' => 
+  array (
+    'data' => 0,
+    'v' => 0,
+  ),
+  'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5a506ce9c64057_44700843')) {function content_5a506ce9c64057_44700843($_smarty_tpl) {?><!DOCTYPE html>
 <html lang="zh-cn">
@@ -75,12 +80,34 @@ $_valid = $_smarty_tpl->decodeProperties(array (
           </div>
           <div class="form-group">
             <div class="label">
+              <label for="pid">所属分类</label>
+            </div>
+            <div class="field">
+              <select class="input" id="pid" name="c_pid" style="width:20%">
+                <option value="0" >--顶级专区--</option>
+                <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['data']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
+$_smarty_tpl->tpl_vars['v']->_loop = true;
+?>
+                <option value="<?php echo $_smarty_tpl->tpl_vars['v']->value['c_id'];?>
+"><?php echo str_repeat('--',$_smarty_tpl->tpl_vars['v']->value['lv']);?>
+<?php echo $_smarty_tpl->tpl_vars['v']->value['c_name'];?>
+</option>
+                <?php } ?>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="label">
               <label for="c_desc">描述</label>
             </div>
             <div class="field">
               <textarea class="input" name="c_desc" id="c_desc" rows="5" cols="50" placeholder="描述" data-validate="required:请填写分类描述"></textarea>
             </div>
           </div>
+
           <div class="form-group">
             <div class="label">
               <label for="c_sort">排序</label>
@@ -90,7 +117,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
             </div>
           </div>
           <div class="form-button">
-            <button class="button bg-main" type="submit" onclick="window.location.href='index.php?g=admin&c=Category&a=sub'">提交</button>
+            <button class="button bg-main" type="submit">提交</button>
           </div>
         </form>
       </div>

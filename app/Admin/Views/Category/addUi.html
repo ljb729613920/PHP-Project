@@ -52,12 +52,27 @@
           </div>
           <div class="form-group">
             <div class="label">
+              <label for="pid">所属分类</label>
+            </div>
+            <div class="field">
+              <select class="input" id="pid" name="c_pid" style="width:20%">
+                <option value="0" >--顶级专区--</option>
+                <{foreach $data as $v}>
+                <option value="<{$v.c_id}>"><{str_repeat('--',$v.lv)}><{$v.c_name}></option>
+                <{/foreach}>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="label">
               <label for="c_desc">描述</label>
             </div>
             <div class="field">
               <textarea class="input" name="c_desc" id="c_desc" rows="5" cols="50" placeholder="描述" data-validate="required:请填写分类描述"></textarea>
             </div>
           </div>
+
           <div class="form-group">
             <div class="label">
               <label for="c_sort">排序</label>
@@ -67,7 +82,7 @@
             </div>
           </div>
           <div class="form-button">
-            <button class="button bg-main" type="submit" onclick="window.location.href='index.php?g=admin&c=Category&a=sub'">提交</button>
+            <button class="button bg-main" type="submit">提交</button>
           </div>
         </form>
       </div>

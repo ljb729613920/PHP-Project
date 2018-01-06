@@ -23,9 +23,17 @@ class AdminModel extends Model{
 	 */
 	public function update_userinfo($id,$ip){
 		// 更新最新登录ip
-
 		$time=time();
 		$sql="update blog_admin set a_last_ip='$ip',a_last_time='$time' where a_id='$id'";
 		return $this -> dbh ->my_exec($sql);
+	}
+	/**
+	 * /获取用户的一条记录
+	 * @param  int $id 用户ID
+	 * @return array     返回用户信息
+	 */
+	public function get_one($id){
+		$sql = "select a_name from blog_admin where a_id = '$id' ";
+		return $this -> dbh ->my_fetch($sql);
 	}
 }

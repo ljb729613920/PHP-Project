@@ -22,34 +22,12 @@ class CategoryController extends AdminController{
 	 * @return file  返回专区主页模板文件
 	 */
 	public function action_index(){
+		//获取下拉分区数据
 		$cate=new CategoryModel();
 		$arr=$cate->get_all();
+		$this-> view ->assign('data',$arr);
 
-		$data=$this -> get_tree($arr,0,0);
-		// echo '<pre>';
-		// print_r($data);exit;
-		$this-> view ->assign('data',$data);
 		$this-> view ->display('index.html');
-	}
-
-	/**
-	 * /无线级分类分组
-	 * @param  array  $arr 需要分组遍历的二维数组
-	 * @param  integer $pid [description]
-	 * @param  integer $lv  [description]
-	 * @return [type]       [description]
-	 */
-	public function get_tree($arr,$pid=0,$lv=0){
-		static $tree;
-		// 无线级分类
-		foreach ($arr as $v) {
-			if($v['c_pid']==$pid){
-				$v['lv']=$lv;
-				$tree[]=$v;
-				$this -> get_tree($arr,$v['c_id'],$lv+1);
-			}
-		}
-		return $tree;
 	}
 
 	/**
@@ -58,18 +36,18 @@ class CategoryController extends AdminController{
 	 */
 	public function action_addui(){
 		$cate=new CategoryModel();
-		$data=$cate->get_cate();
+		$data=$cate->get_all();
+
 		$this -> view -> assign('data',$data);
 		$this -> view -> display('addUi.html');
 	}
 
-	// 专区添加逻辑
+
 	/**
-	 * /
+	 * /专区添加逻辑
 	 * @return [type] [description]
 	 */
 	public function action_add(){
-
 		$arr=[];
 		foreach ($_POST as $k => $v) {
 			$arr[$k]=$this -> input_str($v);
@@ -92,13 +70,22 @@ class CategoryController extends AdminController{
 	public function action_modify(){
 		// 获取修改id
 		$id=isset($_GET['id'])? $this-> input_str($_GET['id']) : null ;
-		// 获取下拉菜单
+		// 获取所修改专区数据
 		$cate=new CategoryModel();
-		$data=$cate->get_one($id);
-		// echo '<pre>';
-		// var_dump($data);exit;
-		$this -> view -> assign('data',$data);
+		$one=$cate->get_one($id);
+		$this -> view -> assign('one',$one);
+
+		// 获取下拉菜单
+		$arr=$cate->get_all();
+		$this-> view ->assign('data',$arr);
+
 		$this -> view -> display('modify.html');
+	}
+	public function action_fail($id){
+		$mess = '修改失败，请重新修改！！！';
+		$url = 'http://blog.com/index.php?g=admin&c=Category&a=update';
+		$second = '3';
+		$this -> error($mess,$url,$second);
 	}
 
 	// 专区主页修改提交模块
@@ -106,8 +93,19 @@ class CategoryController extends AdminController{
 		// 获取修改id
 		$arr['c_id']=isset($_POST['c_id'])? $this-> input_str($_POST['c_id']) : null ;
 		$arr['c_name']=isset($_POST['c_name'])? $this-> input_str($_POST['c_name']) : ' ' ;
+		$arr['c_pid']=isset($_POST['c_pid'])? $this-> input_str($_POST['c_pid']) : ' ' ;
 		$arr['c_desc']=isset($_POST['c_desc'])? $this-> input_str($_POST['c_desc']) : ' ' ;
 		$arr['c_sort']=isset($_POST['c_sort'])? $this-> input_str($_POST['c_sort']) : 1 ;
+
+		// 如果专区将自己设置成所属专区,出错,并返回一个界面
+		if($arr['c_id']==$arr['c_pid']){
+			$mess = '修改失败，所属专区设置错误！！！';
+			$url = 'http://blog.com/index.php?g=admin&c=Category&a=modify&id='.$arr['c_id'];
+			$second = '3';
+		      $this -> error($mess,$url,$second);
+		      exit;
+		}
+
 		$cate=new CategoryModel();
 		$res=$cate->update_one($arr);
 		if($res){

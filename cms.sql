@@ -4,7 +4,8 @@ create database if not exists blog;
 create table blog_article(
 a_id int unsigned primary key auto_increment comment '主键',
 a_title varchar(255) not null default ' ' comment '文章标题',
-a_owner int unsigned  not null default 1 comment '文章作者',
+a_owner int unsigned  not null default 0 comment '文章作者管理员id',
+u_owner int unsigned  not null default 0 comment '文章作者普通用户id',
 a_desc varchar(255) comment '简介、描述',
 a_category varchar(32) comment '专区名',
 a_content text comment '内容',
@@ -15,7 +16,10 @@ a_hits int not null  default 0 comment '点击数',
 a_top tinyint(1) not null default 0 comment '文章置顶状态:1置顶 0未置顶',
 a_del tinyint(1) not null default 1 comment '删除状态:1未删除 0删除',
 a_del_time char(10) not null default '1' comment '删除时间',
-c_id int unsigned not null default 1 comment '专区id'
+c_id int unsigned not null default 1 comment '专区id',
+a_img varchar(128) comment '文章图片',
+a_thumb varchar(128) comment '文章缩略图片',
+a_water varchar(128) comment '文章水印'
 )charset utf8;
 
 -- 测试数据

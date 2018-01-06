@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>黑色Html5响应式个人博客模板——主题《如影随形》</title>
+<title>个人博客</title>
 <meta name="keywords" content="个人博客模板,博客模板,响应式" />
-<meta name="description" content="如影随形主题的个人博客模板，神秘、俏皮。" />
+<meta name="description" content="比格沃斯先生的个人博客模板" />
 <link href="./public/home/css/base.css" rel="stylesheet">
 <link href="./public/home/css/index.css" rel="stylesheet">
 <link href="./public/home/css/media.css" rel="stylesheet">
@@ -16,13 +16,13 @@
 <body>
 <div class="ibody">
 
-  <{include file="../common/menu.html" active="1"}>
+  <{include file="../common/menu.html" active="0" menu=$menu}>
 
   <article>
     <div class="banner">
       <ul class="texts">
-        <p>The best life is use of willing attitude, a happy-go-lucky life. </p>
-        <p>最好的生活是用心甘情愿的态度，过随遇而安的生活。</p>
+        <p>freedom heart</p>
+        <p>流氓气质，诗人情怀，浪子之心，不羁一生</p>
       </ul>
     </div>
     <div class="bloglist">
@@ -32,14 +32,21 @@
       <{nocache}>
       <{foreach $data as $v}>
       <div class="blogs">
-        <h3><a href="index.php?m=home&c=article&a=show&id=<{$v.a_id}>"><{$v.a_title}></a></h3>
-        <figure><img src="<{constant('DIR_THUMBER')}>/<{$v.a_thumber}>" ></figure>
+        <h3><a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title}></a></h3>
+        <figure>
+        <!-- <img src="<{constant('DIR_THUMBER')}>/<{$v.a_thumber}>" ></figure> -->
         <ul>
-          <p><{$v.a_desc}></p>
-          <a href="index.php?m=home&c=article&a=show&id=<{$v.a_id}>" target="_blank" class="readmore">阅读全文&gt;&gt;</a>
+          <p><{$v.a_desc|truncate:20:'...'}></p>
+          <a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>" target="_blank" class="readmore">阅读全文&gt;&gt;</a>
         </ul>
-        <p class="autor"><span>作者：<{$v.u_name}></span><span>分类：【<a href="/"><{$v.c_name}></a>】</span><span>浏览（<a href="/"><{$v.a_click}></a>）</span><span>评论（<a href="/"><{$v.a_comment}></a>）</span></p>
-        <div class="dateview"><{$v.a_time|date_format:'Y-m-d H:i:s'}></div>
+        <p class="autor">
+        <span>作者：<{$v.a_owner}></span>
+        <span>分类：【<a href="/"><{$v.a_category}></a>】</span>
+        <span>浏览（<a href="/"><{$v.a_hits}></a>）</span>
+        <span>评论（<a href="/"><{$v.a_content}></a>）</span>
+        </p>
+        <div class="dateview"><{$v.a_create_time|date_format:'Y-m-d H:i:s'}>
+        </div>
       </div>
       <{/foreach}>
       <{/nocache}>
@@ -52,39 +59,31 @@
       <p>于千万人之中，我遇见了我所遇见的人....</p>
     </div>
     <div class="about_c">
-      <p>网名：DanceSmile | 即步非烟</p>
-      <p>职业：Web前端设计师、网页设计 </p>
-      <p>籍贯：四川省—成都市</p>
-      <p>电话：13662012345</p>
-      <p>邮箱：dancesmiling@qq.com</p>
+      <p>网名：Mr.Bigglesworth | 哞哞儿</p>
+      <p>职业：Web开发攻城狮 </p>
+      <p>籍贯：广东省-深圳市</p>
+      <p>电话：186-XXXX-XXXX</p>
+      <p>邮箱：liujiabin1212@outlook.com</p>
     </div>
-    <div class="bdsharebuttonbox"><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more" data-cmd="more"></a></div>
+  <!--   <div class="bdsharebuttonbox"><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more" data-cmd="more"></a></div> -->
     <div class="tj_news">
       <h2>
         <p class="tj_t1">最新文章</p>
       </h2>
       <ul>
-        <li><a href="/">犯错了怎么办？</a></li>
-        <li><a href="/">两只蜗牛艰难又浪漫的一吻</a></li>
-        <li><a href="/">春暖花开-走走停停-发现美</a></li>
-        <li><a href="/">琰智国际-Nativ for Life官方网站</a></li>
-        <li><a href="/">个人博客模板（2014草根寻梦）</a></li>
-        <li><a href="/">简单手工纸玫瑰</a></li>
-        <li><a href="/">响应式个人博客模板（蓝色清新）</a></li>
-        <li><a href="/">蓝色政府（卫生计划生育局）网站</a></li>
+        <{foreach $news as $v }>
+        <li><a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title|truncate:15:'...':true }></a></li>
+        <{/foreach}>
       </ul>
       <h2>
         <p class="tj_t2">推荐文章</p>
       </h2>
       <ul>
-        <li><a href="/">犯错了怎么办？</a></li>
-        <li><a href="/">两只蜗牛艰难又浪漫的一吻</a></li>
-        <li><a href="/">春暖花开-走走停停-发现美</a></li>
-        <li><a href="/">琰智国际-Nativ for Life官方网站</a></li>
-        <li><a href="/">个人博客模板（2014草根寻梦）</a></li>
-        <li><a href="/">简单手工纸玫瑰</a></li>
-        <li><a href="/">响应式个人博客模板（蓝色清新）</a></li>
-        <li><a href="/">蓝色政府（卫生计划生育局）网站</a></li>
+
+        <{foreach $data as $v }>
+        <li><a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title|truncate:15:'...':true }></a></li>
+        <{/foreach}>
+
       </ul>
     </div>
     <div class="links">
@@ -92,19 +91,19 @@
         <p>友情链接</p>
       </h2>
       <ul>
-        <li><a href="/">杨青个人博客</a></li>
-        <li><a href="/">3DST技术社区</a></li>
+        <li><a href="/">刘佳彬个人博客</a></li>
+
       </ul>
     </div>
     <div class="copyright">
       <ul>
-        <p> Design by <a href="/">DanceSmile</a></p>
-        <p>蜀ICP备11002373号-1</p>
+        <p> Design by <a href="/">Mr.Bigglesworth</a></p>
+        <p></p>
         </p>
       </ul>
     </div>
   </aside>
-  <script src="./public/home/js/silder.js"></script>
+  <!-- <script src="./public/home/js/silder.js"></script> -->
   <div class="clear"></div>
   <!-- 清除浮动 -->
 </div>

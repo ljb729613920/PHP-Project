@@ -9,7 +9,7 @@ class CategoryModel extends Model{
 	 * @return array|false     返回一个二维数组
 	 */
 	public function get_cate(){
-		$sql="select c_id,c_name,c_pid,c_sort,c_role from blog_category where c_del=1";
+		$sql="select * from blog_category where c_del=1";
 		return $this->dbh->my_fetchAll($sql);
 	}
 	/**

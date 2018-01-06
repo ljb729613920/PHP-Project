@@ -43,7 +43,7 @@
     </div>
     <div class="tab-body"> <br />
       <div class="tab-panel active" id="tab-set">
-        <form method="post" class="form-x" action="index.php" enctype="multipart/form-data">
+        <form method="post" class="form-x" action="index.php?g=admin&c=article&a=add" enctype="multipart/form-data">
           <input type="hidden" name="m" value="admin">
           <input type="hidden" name="c" value="Article">
           <input type="hidden" name="a" value="add">
@@ -60,9 +60,10 @@
               <label for="siteurl">所属分类</label>
             </div>
             <div class="field">
-              <select class="input" name="a_category" style="width:20%">
+              <select class="input" name="c_id" style="width:20%">
                 <{foreach $data as $v}>
-                <option value="<{$v.c_name}>"><{str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v.lv)}><{$v.c_name}></option>
+                <option value="<{$v.c_id}>"><{$v.c_name}></option>
+                <{str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$v.lv)}>
                 <{/foreach}>
               </select>
             </div>

@@ -64,9 +64,10 @@ class ArticleModel extends Model{
 	 * @return  0|1|false     未作修改|更新成功|更新失败
 	 */
 	public function add($arr){
+		extract($arr);
 		$user=$_SESSION['userInfo']['a_name'];
 		$time=time();
-		$sql="insert into blog_article(a_title,a_owner,a_desc,a_content,a_category,a_create_time,a_last_time) values('$arr[a_title]','$user','$arr[a_desc]','$arr[a_content]','$arr[a_category]','$time','$time')";
+		$sql="insert into blog_article(a_title,a_owner,a_desc,a_content,c_id,a_create_time,a_last_time) values('$a_title','$user','$a_desc','$a_content','$c_id','$time','$time')";
 		return $this-> dbh ->my_exec($sql);
 	}
 	/**

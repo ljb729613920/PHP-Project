@@ -51,9 +51,9 @@ class Frame{
 	}
 	// 解析url参数
 	private static function analyse_url(){
-		$g=isset($_REQUEST['g'])?$_REQUEST['g']:'admin';
-		$c=isset($_REQUEST['c'])?$_REQUEST['c']:'Privilege';
-		$a=isset($_REQUEST['a'])?$_REQUEST['a']:'login';
+		$g=isset($_REQUEST['g'])?$_REQUEST['g']:'home';
+		$c=isset($_REQUEST['c'])?$_REQUEST['c']:'index';
+		$a=isset($_REQUEST['a'])?$_REQUEST['a']:'index';
 		// 定义成常量在文件中的别的地方使用
 		// 在本类或者其他类中
 		define('G',$g);

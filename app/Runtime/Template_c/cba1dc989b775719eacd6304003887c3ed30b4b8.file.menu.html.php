@@ -1,30 +1,30 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2018-01-05 19:32:20
+<?php /* Smarty version Smarty-3.1.16, created on 2018-01-06 14:20:59
          compiled from "D:\blackhorse\www\blog\App\admin\views\common\menu.html" */ ?>
-<?php /*%%SmartyHeaderCode:217975a4d87ceb829e7-25705110%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:248135a506acbc4cec9-90067852%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     'cba1dc989b775719eacd6304003887c3ed30b4b8' => 
     array (
       0 => 'D:\\blackhorse\\www\\blog\\App\\admin\\views\\common\\menu.html',
-      1 => 1515149839,
+      1 => 1515198856,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '217975a4d87ceb829e7-25705110',
+  'nocache_hash' => '248135a506acbc4cec9-90067852',
   'function' => 
   array (
   ),
-  'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_5a4d87cebec185_67567001',
   'variables' => 
   array (
     'active' => 0,
     'sub' => 0,
   ),
   'has_nocache_code' => false,
+  'version' => 'Smarty-3.1.16',
+  'unifunc' => 'content_5a506acbcd98e4_79933352',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5a4d87cebec185_67567001')) {function content_5a4d87cebec185_67567001($_smarty_tpl) {?>
+<?php if ($_valid && !is_callable('content_5a506acbcd98e4_79933352')) {function content_5a506acbcd98e4_79933352($_smarty_tpl) {?>
 <div class="righter nav-navicon" id="admin-nav">
     <div class="mainer">
         <div class="admin-navbar"> <span class="float-right"> <a class="button button-little bg-main" href="index.php?g=home&c=index&a=index">前台首页</a> <a class="button button-little bg-yellow" href="index.php?g=admin&c=privilege&a=logout">注销登录</a> </span>

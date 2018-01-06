@@ -27,5 +27,9 @@ return [
 	],
 
 	// 图片上传相关保存目录
-	'images'=>'./upload/images'
+	'upload'=>[
+		'images'=>'./upload/images',
+		'maxsize'=>3* 1024 * 1024,
+		'mime' => ['image/jpeg','image/jpg','image/pjpeg','image/png','image/gif']
+	]
 ];

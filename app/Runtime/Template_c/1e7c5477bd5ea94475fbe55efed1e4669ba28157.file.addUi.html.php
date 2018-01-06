@@ -1,22 +1,22 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2018-01-05 15:59:16
+<?php /* Smarty version Smarty-3.1.16, created on 2018-01-06 15:18:01
          compiled from ".\App\admin\views\Article\addUi.html" */ ?>
-<?php /*%%SmartyHeaderCode:251665a4dd07fe78824-61443415%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:295455a5076744515a5-46634760%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '1e7c5477bd5ea94475fbe55efed1e4669ba28157' => 
     array (
       0 => '.\\App\\admin\\views\\Article\\addUi.html',
-      1 => 1515138855,
+      1 => 1515222987,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '251665a4dd07fe78824-61443415',
+  'nocache_hash' => '295455a5076744515a5-46634760',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_5a4dd07ff34049_80434309',
+  'unifunc' => 'content_5a50767455afe5_07210866',
   'variables' => 
   array (
     'data' => 0,
@@ -24,7 +24,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5a4dd07ff34049_80434309')) {function content_5a4dd07ff34049_80434309($_smarty_tpl) {?><!DOCTYPE html>
+<?php if ($_valid && !is_callable('content_5a50767455afe5_07210866')) {function content_5a50767455afe5_07210866($_smarty_tpl) {?><!DOCTYPE html>
 <html lang="zh-cn">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -47,7 +47,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 <body>
 <div class="lefter">
-  <div class="logo"><a href="#" target="_blank"><img src="images/logo.png" alt="后台管理系统" /></a></div>
+  <div class="logo"><a href="index.php?g=admin&c=index&a=index" target="_blank"><img src="/public/admin/images/logo.png" alt="后台管理系统" /></a></div>
 </div>
 <?php echo $_smarty_tpl->getSubTemplate ("../common/menu.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('active'=>3,'sub'=>3002), 0);?>
 
@@ -71,7 +71,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     </div>
     <div class="tab-body"> <br />
       <div class="tab-panel active" id="tab-set">
-        <form method="post" class="form-x" action="index.php" enctype="multipart/form-data">
+        <form method="post" class="form-x" action="index.php?g=admin&c=article&a=add" enctype="multipart/form-data">
           <input type="hidden" name="m" value="admin">
           <input type="hidden" name="c" value="Article">
           <input type="hidden" name="a" value="add">
@@ -88,16 +88,17 @@ $_valid = $_smarty_tpl->decodeProperties(array (
               <label for="siteurl">所属分类</label>
             </div>
             <div class="field">
-              <select class="input" name="a_category" style="width:20%">
+              <select class="input" name="c_id" style="width:20%">
                 <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['data']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
 $_smarty_tpl->tpl_vars['v']->_loop = true;
 ?>
-                <option value="<?php echo $_smarty_tpl->tpl_vars['v']->value['c_name'];?>
-"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$_smarty_tpl->tpl_vars['v']->value['c_level']);?>
-<?php echo $_smarty_tpl->tpl_vars['v']->value['c_name'];?>
+                <option value="<?php echo $_smarty_tpl->tpl_vars['v']->value['c_id'];?>
+"><?php echo $_smarty_tpl->tpl_vars['v']->value['c_name'];?>
 </option>
+                <?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$_smarty_tpl->tpl_vars['v']->value['lv']);?>
+
                 <?php } ?>
               </select>
             </div>

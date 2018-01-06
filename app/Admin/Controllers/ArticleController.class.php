@@ -66,8 +66,11 @@ class ArticleController extends AdminController{
 	 * @return int|bool   0|1|false  跳转
 	 */
 	public function action_add(){
+		$file=$_FILES;
+		echo '<pre>';
+		var_dump($GLOBALS['config']['upload']);exit;
 		$arr['a_title']=$this -> input_str($_POST['a_title']);
-		$arr['a_category']=$this -> input_str($_POST['a_category']);
+		$arr['c_id']=$this -> input_str($_POST['c_id']);
 		$arr['a_desc']=$this -> input_str($_POST['a_desc']);
 		$arr['a_content']=$this -> input_str($_POST['a_content']);
 		$art=new ArticleModel();
@@ -118,7 +121,7 @@ class ArticleController extends AdminController{
 		$this -> view -> display('modify.html');
 	}
 	/**
-	 * /无线级分类分组
+	 * /无限级分类分组
 	 * @param  array  $arr 需要分组遍历的二维数组
 	 * @param  integer $pid [description]
 	 * @param  integer $lv  [description]
@@ -126,7 +129,7 @@ class ArticleController extends AdminController{
 	 */
 	public function get_tree($arr,$pid=0,$lv=0){
 		static $tree;
-		// 无线级分类
+		// 无限级分类
 		foreach ($arr as $v) {
 			if($v['c_pid']==$pid){
 				$v['lv']=$lv;

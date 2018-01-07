@@ -4,7 +4,7 @@ namespace app\home\controllers;
 use frame\core\Controller;
 use app\home\models\ArticleModel;
 use app\home\models\CategoryModel;
-use app\home\models\UserModel;
+use app\home\models\RecordModel;
 
 class IndexController extends Controller{
 	/**
@@ -16,16 +16,26 @@ class IndexController extends Controller{
 		// 获取推荐的文章
 		$art = new ArticleModel();
 		$limit=10;
-		$data = $art -> get_top($limit);
+		$data = $art -> get_index($limit);
 
-		// 将文章所需的专区表名和用户表名填入数据组中
-		$cate = new CategoryModel();//只需要读专区名
-		$user = new UserModel();//只需要读用户名
+		// 获取对应的文章的评论数量
+		$record = new RecordModel();
+		$arr=[];
+		foreach($data as $v){
+			array_push($arr,$v['a_id']);
+		}
+		$id=implode(',', $arr);
+		$recordNums=$record -> get_count($id);
 		foreach($data as $k => $v){
-			$a_owner=$user -> get_one($v['a_owner']);
-			$c_name=$cate -> get_one($v['c_id']);
-			$data[$k]['a_owner']=$a_owner['u_name'];
-			$data[$k]['c_name']=$c_name['c_name'];
+			foreach($recordNums as $key => $value){
+				if($v['a_id'] == $value['r_a_id']){
+						$data[$k]['recordNums']=$value['c'];
+						continue 2;
+				}
+				if(!isset($data[$k]['recordNums'])){
+					$data[$k]['recordNums']=0;
+				}
+			}
 		}
 		$this-> view ->assign('data',$data);
 
@@ -33,6 +43,7 @@ class IndexController extends Controller{
 		$news = $art -> get_new($limit);
 		$this-> view ->assign('news',$news);
 		// 获取导航菜单数据
+		$cate = new CategoryModel();
 		$menu = $cate -> get_cate_top();
 		$this -> view -> assign('menu',$menu);
 

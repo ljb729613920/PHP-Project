@@ -12,8 +12,8 @@ a_create_time char(10) not null default '1' comment '文章创建时间',
 a_last_time char(10) not null default '1' comment '文章编辑时间',
 a_like int not null default 0 comment '点赞',
 a_hits int not null  default 0 comment '点击数',
-a_top tinyint(1) not null default 0 comment '文章置顶状态:1置顶 0未置顶',
-a_del tinyint(1) not null default 1 comment '删除状态:1未删除 0删除',
+a_top char(1) not null default '0' comment '文章置顶状态:1置顶 0未置顶',
+a_del char(1) not null default '1' comment '删除状态:1未删除 0删除',
 a_del_time char(10) not null default '1' comment '删除时间',
 c_id int unsigned not null default 1 comment '专区id',
 a_img varchar(128) comment '文章图片',
@@ -30,7 +30,7 @@ u_id int unsigned primary key auto_increment comment '主键',
 u_name varchar(32) not null default '1' comment '用户名',
 u_pwd char(128) not null default '1' comment '密码',
 u_nickname varchar(32) not null default ' ' comment '昵称',
-u_avatar int not null default 0 comment '用户头像',
+u_avatar varchar(128) not null default 0 comment '用户头像',
 u_reg_time char(10) not null default '1' comment '注册时间',
 u_reg_ip char(15) not null default '' comment '注册IP',
 u_last_time char(10) not null default '1' comment '最后登录时间',
@@ -54,9 +54,9 @@ c_name varchar(32) not null default '' comment '专区名',
 c_desc varchar(255) not null default '' comment '专区描述',
 c_pid varchar(10) not null default '0' comment '专区等级:0是最高级',
 c_sort varchar(10) not null default '1' comment '排序',
-c_role char(1) not null default 0 comment '修改访问权限：0普通用户 1管理员',
+c_role char(1) not null default '0' comment '修改访问权限：0普通用户 1管理员',
 c_create_time char(10) not null default '1' comment '专区创建时间',
-c_del tinyint(1) not null default 1 comment '删除状态:1未删除 0删除',
+c_del char(1) not null default '1' comment '删除状态:1未删除 0删除',
 c_del_time char(10) not null default '1' comment '删除时间'
 )charset utf8;
 
@@ -69,7 +69,7 @@ a_id int unsigned primary key auto_increment comment '主键',
 a_name varchar(32) not null default '1' comment '用户名',
 a_pwd char(128) not null default '' comment '密码',
 a_truename varchar(32) not null default ' ' comment '真名',
-a_avatar int not null default 0 comment '用户头像',
+a_avatar varchar(128) not null default ' ' comment '用户头像',
 a_last_time char(10) not null default '1' comment '最后登录时间',
 a_last_ip varchar(128) not null default '' comment '最后登录IP'
 )charset utf8;
@@ -84,7 +84,14 @@ insert into blog_admin(a_name,a_pwd) values('admin1','1111');
 -- 回复表
 create table blog_record(
 r_id int unsigned primary key auto_increment comment '主键',
+u_id int unsigned comment '回复人的id',
+r_content text not null  comment '回复的内容',
 r_a_id int unsigned comment '回复帖子的id',
-r_id int unsigned  comment '主键',
-r_like
+r_pid int unsigned  default 0 comment '回复本帖回复的id',
+r_time char(10) not null default ' ' comment '回复的时间',
+r_like int unsigned not null default 0 comment '喜欢',
+r_diss int unsigned not null default 0 comment '踩',
+r_del char(1) not null default '1' comment '删除状态: 1未删除 0已删除'
 )charset utf8;
+
+insert into blog_record(u_id,r_content,r_a_id,r_time) values(1,'我来组成测试',1,'1515308436');

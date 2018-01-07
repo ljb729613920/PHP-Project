@@ -1,22 +1,22 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2018-01-06 23:33:54
+<?php /* Smarty version Smarty-3.1.16, created on 2018-01-07 20:19:27
          compiled from ".\App\home\views\index\index.html" */ ?>
-<?php /*%%SmartyHeaderCode:29605a503f9f3f1a47-60387926%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:77225a51c81b5c2d45-90719433%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '3a412eaa7f3f663bd0bbdf4baf6529d8bb86234d' => 
     array (
       0 => '.\\App\\home\\views\\index\\index.html',
-      1 => 1515252829,
+      1 => 1515327288,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '29605a503f9f3f1a47-60387926',
+  'nocache_hash' => '77225a51c81b5c2d45-90719433',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_5a503f9f4cc671_00980689',
+  'unifunc' => 'content_5a51c81b6bcc93_80716338',
   'variables' => 
   array (
     'menu' => 0,
@@ -26,7 +26,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5a503f9f4cc671_00980689')) {function content_5a503f9f4cc671_00980689($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_truncate')) include 'C:\\php9\\blog\\frame\\Smarty\\plugins\\modifier.truncate.php';
+<?php if ($_valid && !is_callable('content_5a51c81b6bcc93_80716338')) {function content_5a51c81b6bcc93_80716338($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_truncate')) include 'C:\\php9\\blog\\frame\\Smarty\\plugins\\modifier.truncate.php';
 if (!is_callable('smarty_modifier_date_format')) include 'C:\\php9\\blog\\frame\\Smarty\\plugins\\modifier.date_format.php';
 ?><!doctype html>
 <html>
@@ -81,16 +81,16 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
 " target="_blank" class="readmore">阅读全文&gt;&gt;</a>
         </ul>
         <p class="autor">
-        <span >作者：<?php echo $_smarty_tpl->tpl_vars['v']->value['a_owner'];?>
+        <span >作者：<?php echo $_smarty_tpl->tpl_vars['v']->value['u_name'];?>
 </span> </p><br/>
         <span >分类：【<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['c_name'];?>
 </a>】</span><br/>
         <span >浏览（<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['a_hits'];?>
 </a>）</span><br/>
-        <span >评论（<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['a_content'];?>
+        <span >评论（<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['recordNums'];?>
 </a>）</span>
 
-        <div class="dateview"><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['v']->value['a_create_time'],'Y-m-d H:i:s');?>
+        <div class="dateview"><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['v']->value['a_create_time'],'Y-m-d');?>
 
         </div>
       </div>

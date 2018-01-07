@@ -1,37 +1,38 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2018-01-06 23:38:28
+<?php /* Smarty version Smarty-3.1.16, created on 2018-01-07 20:41:39
          compiled from ".\App\home\views\article\show.html" */ ?>
-<?php /*%%SmartyHeaderCode:32465a5045c3057837-73510093%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:324615a51eb66c8d331-37761978%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '6e8485f2b03837dae31593d5d8f8396af588ddd0' => 
     array (
       0 => '.\\App\\home\\views\\article\\show.html',
-      1 => 1515243421,
+      1 => 1515328898,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '32465a5045c3057837-73510093',
+  'nocache_hash' => '324615a51eb66c8d331-37761978',
   'function' => 
   array (
   ),
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_5a5045c30e4250_49815679',
+  'unifunc' => 'content_5a51eb66d81948_22353928',
   'variables' => 
   array (
     'data' => 0,
+    'recordNums' => 0,
     'prev' => 0,
     'next' => 0,
-    'bucket' => 0,
+    'record' => 0,
+    'v' => 0,
     'hit' => 0,
     'k' => 0,
     'i' => 0,
-    'v' => 0,
     'top' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5a5045c30e4250_49815679')) {function content_5a5045c30e4250_49815679($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'C:\\php9\\blog\\frame\\Smarty\\plugins\\modifier.date_format.php';
+<?php if ($_valid && !is_callable('content_5a51eb66d81948_22353928')) {function content_5a51eb66d81948_22353928($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'C:\\php9\\blog\\frame\\Smarty\\plugins\\modifier.date_format.php';
 if (!is_callable('smarty_modifier_truncate')) include 'C:\\php9\\blog\\frame\\Smarty\\plugins\\modifier.truncate.php';
 ?><!doctype html>
 <html>
@@ -115,11 +116,11 @@ if (!is_callable('smarty_modifier_truncate')) include 'C:\\php9\\blog\\frame\\Sm
 </h2>
       <p class="box_c"><span class="d_time">发布时间：<?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['data']->value['a_last_time'],'Y-m-d H:i:s');?>
 </span>
-      <span>编辑：<?php echo $_smarty_tpl->tpl_vars['data']->value['a_owner'];?>
+      <span>编辑：<?php echo $_smarty_tpl->tpl_vars['data']->value['u_name'];?>
 </span>
       <span>浏览（<?php echo $_smarty_tpl->tpl_vars['data']->value['a_hits'];?>
 ）</span>
-      <span>评论览（<?php echo $_smarty_tpl->tpl_vars['data']->value['a_hits'];?>
+      <span>评论览（<?php echo $_smarty_tpl->tpl_vars['recordNums']->value;?>
 ）</span></p>
       <ul class="infos">
        <?php echo $_smarty_tpl->tpl_vars['data']->value['a_content'];?>
@@ -129,7 +130,7 @@ if (!is_callable('smarty_modifier_truncate')) include 'C:\\php9\\blog\\frame\\Sm
         <p><span>关键字词</span>：黑色,个人博客,时间轴,响应式</p>
       </div>
       <div class="nextinfo">
-     <!--  
+<!--      
         <?php if ($_smarty_tpl->tpl_vars['prev']->value==false) {?>
         <p>上一篇：<a href="javascript:void();">没有了</a></p>
         <?php } else { ?>
@@ -159,12 +160,31 @@ if (!is_callable('smarty_modifier_truncate')) include 'C:\\php9\\blog\\frame\\Sm
       </div>
 
     <div style="clear:both; height:10px;"></div>
-    <h2>评论列表</h2>
-      
-      <?php echo $_smarty_tpl->tpl_vars['bucket']->value;?>
+      <div class="otherlink">
+      <h2>评论列表</h2>
+      </div>
+         <ul class="pl_n">
+            
+                <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['record']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
+$_smarty_tpl->tpl_vars['v']->_loop = true;
+?>
+                    <dl>
+                        <dt><img  src="<?php echo $_smarty_tpl->tpl_vars['v']->value['u_avatar'];?>
+"></dt>
+                        <dd>&nbsp;</dd>
+                        <dd>
+                            <time><?php echo $_smarty_tpl->tpl_vars['v']->value['u_nickname'];?>
+：</time><?php echo $_smarty_tpl->tpl_vars['v']->value['r_content'];?>
 
-      
-
+                            <time> <?php echo $_smarty_tpl->tpl_vars['v']->value['r_time'];?>
+</time>
+                        </dd>
+                    </dl>
+                <?php } ?>
+            
+        </ul>
 
     <div style="clear:both; height:10px;"></div>
      <div class="otherlink">
@@ -178,13 +198,14 @@ if (!is_callable('smarty_modifier_truncate')) include 'C:\\php9\\blog\\frame\\Sm
     <div style="clear:both; height:10px;"></div>
 
     <div class="ds-replybox">
-        <form action="index.php?c=Article&a=addcomment" method="post">
+        <form action="index.php?g=home&c=Article&a=addRecord" method="post">
         <input type='hidden' name='userid' value='{$smarty.session.user.id|default:0}' />
-        <input type='hidden' name='id' value='<?php echo $_smarty_tpl->tpl_vars['data']->value['a_id'];?>
+        <input type='hidden' name='r_a_id' value='<?php echo $_smarty_tpl->tpl_vars['data']->value['a_id'];?>
 ' />
-        <input type='hidden' name='pid' value='0' />
+        <input type='hidden' name='r_pid' value='0' />
+        <?php if (isset($_SESSION['userInfo'])) {?>
         <textarea placeholder="说点什么吧…" title="Ctrl+Enter快捷提交" name="content"></textarea><pre class="ds-hidden-text"></pre>
-        </div>
+    </div>
         <div class="ds-post-toolbar">
         <div class="ds-post-options ds-gradient-bg"><span class="ds-sync"></span>
         </div>
@@ -192,6 +213,18 @@ if (!is_callable('smarty_modifier_truncate')) include 'C:\\php9\\blog\\frame\\Sm
         <div class="ds-toolbar-buttons"><a title="插入表情" class="ds-toolbar-button ds-add-emote"></a>
         </div>
         </div>
+        <?php } else { ?>
+        <textarea placeholder="请先登录再评论... 单击登录" title="Ctrl+Enter快捷提交" name="content" disabled></textarea><pre class="ds-hidden-text"></pre>
+    </div>
+        <div class="ds-post-toolbar">
+        <div class="ds-post-options ds-gradient-bg"><span class="ds-sync"></span>
+        </div>
+        <button type="button" class="ds-post-button" onclick="window.location.href='index.php' " >登录</button>
+        <div class="ds-toolbar-buttons"><a title="插入表情" class="ds-toolbar-button ds-add-emote"></a>
+        </div>
+        </div>
+        <?php }?>
+
         </form>
       </div>
   </article>

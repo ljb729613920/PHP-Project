@@ -5,6 +5,7 @@ use frame\core\Controller;
 use app\home\models\ArticleModel;
 use app\home\models\CategoryModel;
 use app\home\models\UserModel;
+use app\home\models\RecordModel;
 
 class ArticleController extends Controller{
 	/**
@@ -40,9 +41,9 @@ class ArticleController extends Controller{
 		$totalArts = $art -> get_total($c_id);
 
 		// 获取点击量最多的文章数据
-		$this -> hit($art,10);
+		$this -> get_hit($art,10);
 		// 获取推荐的文章
-		$this -> top($art,10);
+		$this -> get_top($art,10);
 		// 获取专区数据
 		$this -> get_menu();
 
@@ -50,6 +51,49 @@ class ArticleController extends Controller{
 		$this -> view -> assign('data',$data);
 		$this -> view -> assign('c_id',$c_id);
 		$this -> view -> display('index.html');
+	}
+	/**
+	 * /显示某篇文章的内容
+	 * @return [type] [description]
+	 */
+	public function action_show(){
+		// 显示的帖子ID
+		$a_id=isset($_GET['a_id'])?$_GET['a_id']:0;
+		// 获取具体显示的文章数据
+		$art = new ArticleModel();
+		$data= $art -> get_one($a_id);
+
+		$this -> view -> assign('data',$data);
+		// 获取点击量最多的文章数据
+		$this -> get_hit($art,10);
+		// 获取推荐的文章
+		$this -> get_top($art,10);
+		// 获取专区数据
+		$this -> get_menu();
+
+		// 获取回复数据
+		$obj = new RecordModel();
+		$record=$obj -> get_all($a_id);
+		// 获取回复的用户名
+		$user = new UserModel();//只需要读用户名
+		foreach($record as $k => $v){
+			// 返回一个用户的数组
+			$u_name=$user -> get_one($v['u_id']);
+			$record[$k]['u_nickname']=$u_name['u_nickname'];
+			$record[$k]['u_avatar']=$u_name['u_avatar'];
+			$record[$k]['r_time']=$this -> time_str($record[$k]['r_time']);
+		}
+		$this -> view -> assign('record',$record);
+		// 获取回复的总数
+		$recordNums=count($record);
+		$this -> view -> assign('recordNums',$recordNums);
+
+		$this -> view -> display('show.html');
+	}
+	public function action_addRecord(){
+		echo '<pre>';
+		var_dump($_SESSION );exit;
+		$r_id=isset($_GET['a_id'])?$_GET['a_id']:0;
 	}
 	/**
 	 * /获取顶级专区数据，可放置在任意位置
@@ -62,34 +106,26 @@ class ArticleController extends Controller{
 		$menu = $cate -> get_cate_top();
 		return $this -> view -> assign('menu',$menu);
 	}
-	public function hit($obj,$limit){
+	/**
+	 * /获取点击量最多的文章
+	 * @param  object  	$obj   	实例化articleModel对象
+	 * @param  int  		$limit 	限制获取数据的个数
+	 * @return array      返回所有数据的一个二维数组
+	 */
+	public function get_hit($obj,$limit){
 		// 获取点击量最多的文章数据
-		$artsHit = $obj -> get_hit($limit);
+		$artsHit = $obj -> get_hits($limit);
 		return $this -> view -> assign('hit',$artsHit);
 	}
-	public function top($obj,$limit){
+	/**
+	 * /获取推荐的文章
+	 * @param  object  	$obj   	实例化articleModel对象
+	 * @param  int  		$limit 	限制获取数据的个数
+	 * @return array      返回所有数据的一个二维数组
+	 */
+	public function get_top($obj,$limit){
 		// 获取推荐的文章
-		$top = $obj -> get_top($limit);
+		$top = $obj -> get_tops($limit);
 		return $this -> view -> assign('top',$top);
 	}
-	/**
-	 * /显示某篇文章的内容
-	 * @return [type] [description]
-	 */
-	public function action_show(){
-		$a_id=isset($_GET['a_id'])?$_GET['a_id']:0;
-		// 获取具体显示的文章数据
-		$art = new ArticleModel();
-		$data= $art -> get_one($a_id);
-		$this -> view -> assign('data',$data);
-		// 获取点击量最多的文章数据
-		$this -> hit($art,10);
-		// 获取推荐的文章
-		$this -> top($art,10);
-		// 获取专区数据
-		$this -> get_menu();
-
-		$this -> view -> display('show.html');
-	}
-
 }

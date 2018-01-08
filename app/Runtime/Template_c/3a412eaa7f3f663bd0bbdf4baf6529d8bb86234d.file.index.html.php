@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2018-01-08 19:22:00
+<?php /* Smarty version Smarty-3.1.16, created on 2018-01-08 21:31:38
          compiled from ".\App\home\views\index\index.html" */ ?>
 <?php /*%%SmartyHeaderCode:37355a535458cf2f96-08116423%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '3a412eaa7f3f663bd0bbdf4baf6529d8bb86234d' => 
     array (
       0 => '.\\App\\home\\views\\index\\index.html',
-      1 => 1515398877,
+      1 => 1515418273,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.16',
+  'unifunc' => 'content_5a535459019f23_05028222',
   'variables' => 
   array (
     'menu' => 0,
@@ -24,8 +26,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'top' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_5a535459019f23_05028222',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5a535459019f23_05028222')) {function content_5a535459019f23_05028222($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_truncate')) include 'D:\\blackhorse\\www\\blog\\frame\\Smarty\\plugins\\modifier.truncate.php';
 if (!is_callable('smarty_modifier_date_format')) include 'D:\\blackhorse\\www\\blog\\frame\\Smarty\\plugins\\modifier.date_format.php';
@@ -82,7 +82,7 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
 " target="_blank" class="readmore">阅读全文&gt;&gt;</a>
         </ul>
         <p class="autor">
-          <span >作者：<?php echo $_smarty_tpl->tpl_vars['v']->value['u_name'];?>
+          <span >作者：<?php echo $_smarty_tpl->tpl_vars['v']->value['u_nickname'];?>
 </span>
           <span >分类：【<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['c_name'];?>
 </a>】</span>
@@ -92,7 +92,7 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
 </a>）</span>
         </p>
 
-        <div class="dateview"><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['v']->value['a_create_time'],'Y-m-d');?>
+        <div class="dateview"><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['v']->value['a_last_time'],'Y-m-d');?>
 
         </div>
       </div>

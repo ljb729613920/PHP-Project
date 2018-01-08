@@ -20,9 +20,12 @@ class ArticleController extends Controller{
 		// 通过顶级专区获取其子级专区的id值，与专区名
 		$cate = new CategoryModel();
 		$group=$cate -> get_group($c_id);
-		$groupId=implode(',',$group['c_id']);
-		echo '<pre>';
-		var_dump($group);exit;
+		$a=[];
+		foreach ($group as $v) {
+			$a[]= $v['c_id'];
+		}
+		$groupIds=implode(',',$a);
+
 		// 获取Pages所需要的参数
 		$arr['rows']=$GLOBALS['config']['pages']['rows'];
 		$arr['showPages']=$GLOBALS['config']['pages']['showPages'];
@@ -36,13 +39,14 @@ class ArticleController extends Controller{
 
 		// 获取文章数据,通过专区id值$group[]['c_id']
 		$art = new ArticleModel();
-		$data= $art -> get_all($c_id,$arr['rows'],$offset);
-		// 将文章所需的专区表名和用户表名填入数据组中
-		$cate = new CategoryModel();//只需要读专区名
-		$c_name=$cate -> get_group($c_id);
+		$data= $art -> get_all($groupIds,$arr['rows'],$offset);
+		// 通过文章的id获取所有的回复数
+		$record = new RecordModel();
+		foreach ($data as $k => $v) {
+			$res=$record -> get_count($v['a_id']);
+			$data[$k]['records']=$res[0]['c'];
+		}
 
-		echo '<pre>';
-		var_dump($data);
 		$this -> view -> assign('data',$data);
 
 		// 获取文章个数
@@ -85,15 +89,7 @@ class ArticleController extends Controller{
 		// 获取回复数据
 		$obj = new RecordModel();
 		$record=$obj -> get_all($a_id);
-		// 获取回复的用户名
-		$user = new UserModel();//只需要读用户名
-		foreach($record as $k => $v){
-			// 返回一个用户的数组
-			$u_name=$user -> get_one($v['u_id']);
-			$record[$k]['u_nickname']=$u_name['u_nickname'];
-			$record[$k]['u_avatar']=$u_name['u_avatar'];
-			$record[$k]['r_time']=$this -> time_str($record[$k]['r_time']);
-		}
+
 		$this -> view -> assign('record',$record);
 		// 获取回复的总数
 		$recordNums=count($record);

@@ -15,10 +15,10 @@ class RecordModel extends Model{
 		static $tree;
 		// 无线级分类
 		foreach ($arr as $v) {
-			if($v['c_pid']==$pid){
+			if($v['r_pid']==$pid){
 				$v['lv']=$lv;
 				$tree[]=$v;
-				$this -> get_tree($arr,$v['c_id'],$lv+1);
+				$this -> get_tree($arr,$v['r_id'],$lv+1);
 			}
 		}
 		return $tree;
@@ -27,8 +27,17 @@ class RecordModel extends Model{
 		$sql="select r_a_id,count(*) c from blog_record where r_a_id in ($r_a_id)";
 		return $this -> dbh ->my_fetchAll($sql);
 	}
+	/**
+	 * /获得所有的回复数据
+	 * 	record: r_id,r_content,r_pid,r_time,r_like,r_diss
+	 * 	user:u_id,u_nickname,u_avatar
+	 * @param  int $r_a_id 传入的文章的id
+	 * @return array         返回一个回复 用户关联的二维数组
+	 */
 	public function get_all($r_a_id){
-		$sql="select * from blog_record where r_a_id in ($r_a_id)";
-		return $this -> dbh ->my_fetchAll($sql);
+		$sql="select r.r_id,r.r_content,r.r_pid,r.r_time,r.r_like,r.r_diss,u.u_id,u.u_nickname,u.u_avatar from blog_record r join blog_user u on r.u_id = u.u_id where r.r_a_id in ($r_a_id) and r.r_del=1";
+		$arr = $this -> dbh ->my_fetchAll($sql);
+		return $this -> get_tree($arr);
 	}
+
 }

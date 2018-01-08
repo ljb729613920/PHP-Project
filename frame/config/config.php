@@ -23,7 +23,7 @@ return [
 	// rows:每页显示的item数量
 	'pages'=>[
 		'showPages'=>5,
-		'rows'=>2
+		'rows'=>10
 	],
 
 	// 图片上传相关保存目录

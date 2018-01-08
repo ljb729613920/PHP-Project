@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2018-01-08 19:53:43
+<?php /* Smarty version Smarty-3.1.16, created on 2018-01-08 21:21:09
          compiled from ".\App\home\views\Article\index.html" */ ?>
 <?php /*%%SmartyHeaderCode:251345a535bc75a39f1-28165981%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'f7648b4321e78ce52225c99555fecf6891fd746f' => 
     array (
       0 => '.\\App\\home\\views\\Article\\index.html',
-      1 => 1515402643,
+      1 => 1515417660,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.16',
+  'unifunc' => 'content_5a535bc7691eb1_43678910',
   'variables' => 
   array (
     'c_id' => 0,
@@ -29,8 +31,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'top' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_5a535bc7691eb1_43678910',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5a535bc7691eb1_43678910')) {function content_5a535bc7691eb1_43678910($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_truncate')) include 'D:\\blackhorse\\www\\blog\\frame\\Smarty\\plugins\\modifier.truncate.php';
 if (!is_callable('smarty_modifier_date_format')) include 'D:\\blackhorse\\www\\blog\\frame\\Smarty\\plugins\\modifier.date_format.php';
@@ -87,13 +87,13 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
 </a>
 					</h3>
 					<div class="autor">
-					<span>作者：<?php echo $_smarty_tpl->tpl_vars['v']->value['a_owner'];?>
+					<span>作者：<?php echo $_smarty_tpl->tpl_vars['v']->value['u_nickname'];?>
 </span>
 					<span>分类：[<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['c_name'];?>
 </a>]</span>
 					<span>浏览（<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['a_hits'];?>
 </a>）</span>
-					<span>评论（<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['a_hits'];?>
+					<span>评论（<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['records'];?>
 </a>）</span>
 					</div>
 					<p><?php echo smarty_modifier_truncate($_smarty_tpl->tpl_vars['v']->value['a_desc'],20,'...',true);?>

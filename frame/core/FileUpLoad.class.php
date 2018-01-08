@@ -1,48 +1,32 @@
 <?php
 namespace frame\core;
-$file;
-$mime = ['image/jpeg','image/jpg','image/pjpeg','image/png','image/gif',] ;
-$filename=date('YmdHis');
-$path;
+
 class FileUpLoad{
 
-	public function upload($file,$mime,$filename,$path){
+	public function upload($file,$arr){
+		extract($arr);
+		if(!in_array($file['type'],$mine)){
+			return [false,1008];
+			exit;
+		}
 		if($file['size']>$maxsize){
-			$file['error']=1;
+			return [false,1001];
+			exit;
 		}
-		if(!in_array($file['type'],$mime)){
-			$file['error']=2;
+		if($file['error']==0){
+			$tmp=$file['tmp_name'];
+			$info=pathinfo($file['name'],PATHINFO_EXTENSION);
+			$basename=$prefix.self::get_rand_name($num).'.'.$info;
+			$dest=$path.'/'.$basename;
+			move_uploaded_file($tmp,$dest);
+			return [true,$basename];
+		}else{
+			return [false,$file['error']];
 		}
-		switch ($file['error']){
-			case 1:
-				exit('上传的文件超过了限制的值(3M以内)');
-				break;
-			case 2:
-				exit('上传的文件超过了限制的值(3M以内)');
-				break;
-			case 3:
-				exit('文件只有部分被上传');
-				break;
-			case 4:
-				exit('没有文件被上传');
-				break;
-			case 6:
-				exit('找不到临时文件夹');
-				break;
-			case 7:
-				exit('文件写入失败');
-				break;
-			default:
-				break;
-		}
-		$tmp=$file['tmp_name'];
-		$info=pathinfo($file['name'],PATHINFO_EXTENSION);
-		$basename=$filename.get_rand_name(6).'.'.$info;
-		$dest=$path.'/'.$basename;
-		move_uploaded_file($tmp,$dest);
+
 	}
 
-	public function get_rand_name($i){
+	private static function get_rand_name($i){
 		$str='';
 		$a=0;
 		while($a<$i){

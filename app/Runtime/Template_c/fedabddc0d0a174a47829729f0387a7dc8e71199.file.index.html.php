@@ -1,4 +1,33 @@
-<!DOCTYPE html>
+<?php /* Smarty version Smarty-3.1.16, created on 2018-01-08 19:22:13
+         compiled from ".\App\admin\views\Article\index.html" */ ?>
+<?php /*%%SmartyHeaderCode:188375a535465256f91-09595324%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    'fedabddc0d0a174a47829729f0387a7dc8e71199' => 
+    array (
+      0 => '.\\App\\admin\\views\\Article\\index.html',
+      1 => 1515401091,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '188375a535465256f91-09595324',
+  'function' => 
+  array (
+  ),
+  'variables' => 
+  array (
+    'data' => 0,
+    'v' => 0,
+    'curPage' => 0,
+    'pages' => 0,
+  ),
+  'has_nocache_code' => false,
+  'version' => 'Smarty-3.1.16',
+  'unifunc' => 'content_5a5354653127c5_76656920',
+),false); /*/%%SmartyHeaderCode%%*/?>
+<?php if ($_valid && !is_callable('content_5a5354653127c5_76656920')) {function content_5a5354653127c5_76656920($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'D:\\blackhorse\\www\\blog\\frame\\Smarty\\plugins\\modifier.date_format.php';
+?><!DOCTYPE html>
 <html lang="zh-cn">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -23,9 +52,11 @@
 <div class="lefter">
     <div class="logo"><a href="index.php?g=admin&c=index&a=index" target="_blank"><img src="/public/admin/images/logo.png" alt="后台管理系统" /></a></div>
 </div>
-<{include file="../common/menu.html" active="3" sub='3001'}>
+<?php echo $_smarty_tpl->getSubTemplate ("../common/menu.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('active'=>"3",'sub'=>'3001'), 0);?>
+
     <div class="admin-bread">
-        <span>您好，<{$smarty.session.userInfo.a_truename}>，欢迎您的光临。</span>
+        <span>您好，<?php echo $_SESSION['userInfo']['a_truename'];?>
+，欢迎您的光临。</span>
         <ul class="bread">
             <li><a href="index.php?g=admin&c=index&a=index" class="icon-home"> 开始</a></li>
             <li>文章管理</li>
@@ -67,31 +98,47 @@
                 <th width="180">发布时间</th>
                 <th width="100">操作</th>
             </tr>
-            <{foreach $data as $v}>
+            <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['data']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
+$_smarty_tpl->tpl_vars['v']->_loop = true;
+?>
             <tr>
-                <td><input type="checkbox" name="ids" id="ids" value="<{$v.a_id}>" /></td>
-                <td><{$v.c_name}></td>
-                <td><{$v.a_title}></td>
-                <td><{$v.a_hits}></td>
+                <td><input type="checkbox" name="ids" id="ids" value="<?php echo $_smarty_tpl->tpl_vars['v']->value['a_id'];?>
+" /></td>
+                <td><?php echo $_smarty_tpl->tpl_vars['v']->value['c_name'];?>
+</td>
+                <td><?php echo $_smarty_tpl->tpl_vars['v']->value['a_title'];?>
+</td>
+                <td><?php echo $_smarty_tpl->tpl_vars['v']->value['a_hits'];?>
+</td>
                 <td>
-                    <{if $v.a_top eq 0}>
-                    <a class="button border-red button-little" href="index.php?g=admin&c=Article&a=recommend&id=<{$v.a_id}>&curPage=<{$curPage}>" id="recommend">推荐</a>
-                    <{else}>
-                    <a class="button border-yellow button-little" href="index.php?g=admin&c=Article&a=recommend&id=<{$v.a_id}>&curPage=<{$curPage}>">取消推荐</a>
-                    <{/if}>
+                    <?php if ($_smarty_tpl->tpl_vars['v']->value['a_top']==0) {?>
+                    <a class="button border-red button-little" href="index.php?g=admin&c=Article&a=recommend&id=<?php echo $_smarty_tpl->tpl_vars['v']->value['a_id'];?>
+&curPage=<?php echo $_smarty_tpl->tpl_vars['curPage']->value;?>
+" id="recommend">推荐</a>
+                    <?php } else { ?>
+                    <a class="button border-yellow button-little" href="index.php?g=admin&c=Article&a=recommend&id=<?php echo $_smarty_tpl->tpl_vars['v']->value['a_id'];?>
+&curPage=<?php echo $_smarty_tpl->tpl_vars['curPage']->value;?>
+">取消推荐</a>
+                    <?php }?>
                 </td>
-                <td><{$v.a_last_time|date_format:'Y-m-d H:i:s'}></td>
+                <td><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['v']->value['a_last_time'],'Y-m-d H:i:s');?>
+</td>
                 <td>
-                    <a class="button border-blue button-little" href="index.php?g=admin&c=article&a=modify&id=<{$v.a_id}>">修改</a>
-                    <a class="button border-yellow button-little" href="index.php?g=admin&c=article&a=del&id=<{$v.a_id}>" onclick="return confirm('确认删除么？');">删除</a>
+                    <a class="button border-blue button-little" href="index.php?g=admin&c=article&a=modify&id=<?php echo $_smarty_tpl->tpl_vars['v']->value['a_id'];?>
+">修改</a>
+                    <a class="button border-yellow button-little" href="index.php?g=admin&c=article&a=del&id=<?php echo $_smarty_tpl->tpl_vars['v']->value['a_id'];?>
+" onclick="return confirm('确认删除么？');">删除</a>
                 </td>
             </tr>
-            <{/foreach}>
+            <?php } ?>
             <tfoot>
                 <tr>
                     <td colspan='6'>
                        <div class="pagination" id='pagination'>
-                            <{$pages}>
+                            <?php echo $_smarty_tpl->tpl_vars['pages']->value;?>
+
                         </div>
                     </td>
                 </tr>
@@ -104,3 +151,4 @@
 
 </body>
 </html>
+<?php }} ?>

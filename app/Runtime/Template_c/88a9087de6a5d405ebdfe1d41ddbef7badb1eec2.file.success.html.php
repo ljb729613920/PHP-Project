@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2018-01-08 19:21:57
-         compiled from ".\frame\common\error.html" */ ?>
-<?php /*%%SmartyHeaderCode:13025a5354555a7029-05073194%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /* Smarty version Smarty-3.1.16, created on 2018-01-08 19:22:08
+         compiled from ".\frame\common\success.html" */ ?>
+<?php /*%%SmartyHeaderCode:170545a535460c16174-04732632%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '44d1d82bd90ace851f7d39545ca309be8bd35b3b' => 
+    '88a9087de6a5d405ebdfe1d41ddbef7badb1eec2' => 
     array (
-      0 => '.\\frame\\common\\error.html',
+      0 => '.\\frame\\common\\success.html',
       1 => 1515371335,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '13025a5354555a7029-05073194',
+  'nocache_hash' => '170545a535460c16174-04732632',
   'function' => 
   array (
   ),
@@ -23,10 +23,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_5a5354557a2da2_84655699',
+  'unifunc' => 'content_5a535460c93190_46667702',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5a5354557a2da2_84655699')) {function content_5a5354557a2da2_84655699($_smarty_tpl) {?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<?php if ($_valid && !is_callable('content_5a535460c93190_46667702')) {function content_5a535460c93190_46667702($_smarty_tpl) {?><!DOCTYPE html>
+<html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	<meta http-equiv="refresh" content="<?php echo $_smarty_tpl->tpl_vars['second']->value;?>
@@ -45,11 +45,11 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 			border-radius:5px 5px 10px 10px;
 			background:#efefef;
 			margin:100px auto;
-			transform:rotate(-30deg);
+			transform:rotate(30deg);
 			box-shadow:3px 5px 5px 0px rgba(0,0,0,.5);
 		}
 		#box h4{
-			background:#ffaa00 url(images/icn_alert_info.png) no-repeat 10px 10px;
+			background:#88ffaa url(images/icn_alert_info.png) no-repeat 10px 10px;
 			border-radius:5px 5px 0 0;
 			padding:10px 0;
 			width:100%;
@@ -79,6 +79,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 				i--;
 				objSecond.innerHTML=i;
 			}
+
 		}
 	</script>
 </head>

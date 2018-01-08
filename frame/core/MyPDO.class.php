@@ -44,6 +44,9 @@ class MyPDO{
 			echo '错误信息:'.$e->getMessage(),'<br>';
 			echo '错误文件:'.$e->getFile(),'<br>';
 			echo '错误行:'.$e->getLine(),'<br>';
+			echo 'errorInfo:'.$e->errorInfo(),'<br>';
+			echo '<pre>';
+			echo 'errorInfo:'.$e->__toString(),'<br>';
 			exit;
 		}
 		return $this->dbh;
@@ -62,6 +65,8 @@ class MyPDO{
 			echo '错误信息:'.$e->getMessage(),'<br>';
 			echo '错误文件:'.$e->getFile(),'<br>';
 			echo '错误行:'.$e->getLine(),'<br>';
+			echo '<pre>';
+			echo 'errorInfo:'.$e->__toString(),'<br>';
 			exit;
 		}
 		return $res;
@@ -81,6 +86,8 @@ class MyPDO{
 			echo '错误信息:'.$e->getMessage(),'<br>';
 			echo '错误文件:'.$e->getFile(),'<br>';
 			echo '错误行:'.$e->getLine(),'<br>';
+			echo '<pre>';
+			echo 'errorInfo:'.$e->__toString(),'<br>';
 			exit;
 		}
 			$res=$sth->fetch($type);
@@ -97,6 +104,8 @@ class MyPDO{
 			echo '错误信息:'.$e->getMessage(),'<br>';
 			echo '错误文件:'.$e->getFile(),'<br>';
 			echo '错误行:'.$e->getLine(),'<br>';
+			echo '<pre>';
+			echo 'errorInfo:'.$e->__toString(),'<br>';
 			exit;
 		}
 			$res=$sth->fetchAll($type);

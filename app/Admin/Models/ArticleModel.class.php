@@ -43,7 +43,7 @@ class ArticleModel extends Model{
 	 * @return  0|1|false     未作修改|更新成功|更新失败
 	 */
 	public function update_top($id){
-		$sql="update blog_article set a_top=(a_top+1)%2 where a_id='$id' and a_del=1";
+		$sql="update blog_article set a_top=a_top^1 where a_id='$id' and a_del=1";
 		return $this-> dbh ->my_exec($sql);
 	}
 
@@ -54,7 +54,7 @@ class ArticleModel extends Model{
 	 */
 	public function update_del($id){
 		$time=time();
-		$sql="update blog_article set a_del=(a_del+1)%2,a_del_time='$time',a_top=0 where a_id in ($id)";
+		$sql="update blog_article set a_del=a_del^1,a_del_time='$time',a_top=0 where a_id in ($id)";
 		return $this-> dbh ->my_exec($sql);
 	}
 
@@ -67,7 +67,7 @@ class ArticleModel extends Model{
 		extract($arr);
 		$user=$_SESSION['userInfo']['a_name'];
 		$time=time();
-		$sql="insert into blog_article(a_title,a_owner,a_desc,a_content,c_id,a_create_time,a_last_time) values('$a_title','$user','$a_desc','$a_content','$c_id','$time','$time')";
+		$sql="insert into blog_article(a_title,a_owner,a_desc,a_content,c_id,a_create_time,a_last_time,a_img,a_thumb) values('$a_title','$user','$a_desc','$a_content','$c_id','$time','$time','$a_img','$a_thumb')";
 		return $this-> dbh ->my_exec($sql);
 	}
 	/**

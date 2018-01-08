@@ -18,27 +18,35 @@ class IndexController extends Controller{
 		$limit=10;
 		$data = $art -> get_index($limit);
 
-		// 获取对应的文章的评论数量
-		$record = new RecordModel();
-		$arr=[];
-		foreach($data as $v){
-			array_push($arr,$v['a_id']);
-		}
-		$id=implode(',', $arr);
-		$recordNums=$record -> get_count($id);
-		foreach($data as $k => $v){
-			foreach($recordNums as $key => $value){
-				if($v['a_id'] == $value['r_a_id']){
-						$data[$k]['recordNums']=$value['c'];
-						continue 2;
-				}
-				if(!isset($data[$k]['recordNums'])){
-					$data[$k]['recordNums']=0;
+		if(!empty($data)){
+
+			// 获取对应的文章的评论数量
+			$record = new RecordModel();
+			$arr=[];
+			foreach($data as $v){
+				array_push($arr,$v['a_id']);
+			}
+			$id=implode(',', $arr);
+
+			$recordNums=$record -> get_count($id);
+			foreach($data as $k => $v){
+				foreach($recordNums as $key => $value){
+					if($v['a_id'] == $value['r_a_id']){
+							$data[$k]['recordNums']=$value['c'];
+							continue 2;
+					}
+					if(!isset($data[$k]['recordNums'])){
+						$data[$k]['recordNums']=0;
+					}
 				}
 			}
-		}
-		$this-> view ->assign('data',$data);
 
+			$this-> view ->assign('data',$data);
+		}
+
+		// 获取最新的文章
+		$top = $art -> get_tops($limit);
+		$this-> view ->assign('top',$top);
 		// 获取最新的文章
 		$news = $art -> get_new($limit);
 		$this-> view ->assign('news',$news);

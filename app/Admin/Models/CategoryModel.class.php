@@ -62,7 +62,7 @@ class CategoryModel extends Model{
 	 */
 	public function update_del($id){
 		$time=time();
-		$sql="update blog_category set c_del=(c_del+1)%2,c_del_time='$time' where c_id in ($id)";
+		$sql="update blog_category set c_del=c_del^1,c_del_time='$time' where c_id in ($id)";
 		return $this-> dbh ->my_exec($sql);
 	}
 	/**

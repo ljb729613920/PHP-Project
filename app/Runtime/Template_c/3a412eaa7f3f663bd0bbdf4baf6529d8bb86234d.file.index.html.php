@@ -1,33 +1,34 @@
-<?php /* Smarty version Smarty-3.1.16, created on 2018-01-07 20:19:27
+<?php /* Smarty version Smarty-3.1.16, created on 2018-01-08 19:22:00
          compiled from ".\App\home\views\index\index.html" */ ?>
-<?php /*%%SmartyHeaderCode:77225a51c81b5c2d45-90719433%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:37355a535458cf2f96-08116423%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '3a412eaa7f3f663bd0bbdf4baf6529d8bb86234d' => 
     array (
       0 => '.\\App\\home\\views\\index\\index.html',
-      1 => 1515327288,
+      1 => 1515398877,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '77225a51c81b5c2d45-90719433',
+  'nocache_hash' => '37355a535458cf2f96-08116423',
   'function' => 
   array (
   ),
-  'version' => 'Smarty-3.1.16',
-  'unifunc' => 'content_5a51c81b6bcc93_80716338',
   'variables' => 
   array (
     'menu' => 0,
     'data' => 0,
     'v' => 0,
     'news' => 0,
+    'top' => 0,
   ),
   'has_nocache_code' => false,
+  'version' => 'Smarty-3.1.16',
+  'unifunc' => 'content_5a535459019f23_05028222',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5a51c81b6bcc93_80716338')) {function content_5a51c81b6bcc93_80716338($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_truncate')) include 'C:\\php9\\blog\\frame\\Smarty\\plugins\\modifier.truncate.php';
-if (!is_callable('smarty_modifier_date_format')) include 'C:\\php9\\blog\\frame\\Smarty\\plugins\\modifier.date_format.php';
+<?php if ($_valid && !is_callable('content_5a535459019f23_05028222')) {function content_5a535459019f23_05028222($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_truncate')) include 'D:\\blackhorse\\www\\blog\\frame\\Smarty\\plugins\\modifier.truncate.php';
+if (!is_callable('smarty_modifier_date_format')) include 'D:\\blackhorse\\www\\blog\\frame\\Smarty\\plugins\\modifier.date_format.php';
 ?><!doctype html>
 <html>
 <head>
@@ -61,6 +62,8 @@ if (!is_callable('smarty_modifier_date_format')) include 'C:\\php9\\blog\\frame\
         <p><span>推荐</span>文章</p>
       </h2>
       
+      <?php if (isset($_smarty_tpl->tpl_vars['data']->value)) {?>
+
       <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['data']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
@@ -70,10 +73,8 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
         <h3><a href="index.php?g=home&c=article&a=show&a_id=<?php echo $_smarty_tpl->tpl_vars['v']->value['a_id'];?>
 "><?php echo $_smarty_tpl->tpl_vars['v']->value['a_title'];?>
 </a></h3>
-        <figure>
-        <!-- <img src="<?php echo constant('DIR_THUMBER');?>
-/<?php echo $_smarty_tpl->tpl_vars['v']->value['a_thumber'];?>
-" ></figure> -->
+        <figure><img src="./Upload/thumber/<?php echo $_smarty_tpl->tpl_vars['v']->value['a_thumb'];?>
+" ></figure>
         <ul>
           <p><?php echo smarty_modifier_truncate($_smarty_tpl->tpl_vars['v']->value['a_desc'],20,'...');?>
 </p>
@@ -81,20 +82,22 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
 " target="_blank" class="readmore">阅读全文&gt;&gt;</a>
         </ul>
         <p class="autor">
-        <span >作者：<?php echo $_smarty_tpl->tpl_vars['v']->value['u_name'];?>
-</span> </p><br/>
-        <span >分类：【<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['c_name'];?>
-</a>】</span><br/>
-        <span >浏览（<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['a_hits'];?>
-</a>）</span><br/>
-        <span >评论（<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['recordNums'];?>
+          <span >作者：<?php echo $_smarty_tpl->tpl_vars['v']->value['u_name'];?>
+</span>
+          <span >分类：【<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['c_name'];?>
+</a>】</span>
+          <span >浏览（<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['a_hits'];?>
 </a>）</span>
+          <span >评论（<a href="/"><?php echo $_smarty_tpl->tpl_vars['v']->value['recordNums'];?>
+</a>）</span>
+        </p>
 
         <div class="dateview"><?php echo smarty_modifier_date_format($_smarty_tpl->tpl_vars['v']->value['a_create_time'],'Y-m-d');?>
 
         </div>
       </div>
       <?php } ?>
+      <?php }?>
       
     </div>
   </article>
@@ -133,7 +136,7 @@ $_smarty_tpl->tpl_vars['v']->_loop = true;
       <ul>
 
         <?php  $_smarty_tpl->tpl_vars['v'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['v']->_loop = false;
- $_from = $_smarty_tpl->tpl_vars['data']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+ $_from = $_smarty_tpl->tpl_vars['top']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 foreach ($_from as $_smarty_tpl->tpl_vars['v']->key => $_smarty_tpl->tpl_vars['v']->value) {
 $_smarty_tpl->tpl_vars['v']->_loop = true;
 ?>

@@ -1,6 +1,7 @@
 <?php
 namespace app\home\controllers;
 
+use frame\core\Pages;
 use frame\core\Controller;
 use app\home\models\ArticleModel;
 use app\home\models\CategoryModel;
@@ -13,32 +14,41 @@ class ArticleController extends Controller{
 	 * @return [type] [description]
 	 */
 	public function action_index(){
+		// 传递顶级专区id
 		$c_id=isset($_GET['c_id'])?$_GET['c_id']:0;
-
+		$this -> view -> assign('c_id',$c_id);
+		// 通过顶级专区获取其子级专区的id值，与专区名
+		$cate = new CategoryModel();
+		$group=$cate -> get_group($c_id);
+		$groupId=implode(',',$group['c_id']);
+		echo '<pre>';
+		var_dump($group);exit;
 		// 获取Pages所需要的参数
 		$arr['rows']=$GLOBALS['config']['pages']['rows'];
 		$arr['showPages']=$GLOBALS['config']['pages']['showPages'];
 		// 获取当前页
-		$arr['curPage']=isset($_GET['curPage'])? $this-> input_str($_GET['curPage']) : '1' ;
-		$arr['path']='index.php?g='.$_GET['g'].'&c='.$_GET['c'].'&a='.$_GET['a'];
+		$arr['curPage']=isset($_GET['curPage']) ? $this-> input_str($_GET['curPage']) : '1' ;
+		// $this -> view -> assign('curPage',$arr['curPage']);
+
+		$arr['path']='index.php?g='.$_GET['g'].'&c='.$_GET['c'].'&a='.$_GET['a'].'&c_id='.$c_id;
 		// 偏移量
 		$offset=($arr['curPage']-1)*$arr['rows'];
 
-		// 获取文章数据
+		// 获取文章数据,通过专区id值$group[]['c_id']
 		$art = new ArticleModel();
 		$data= $art -> get_all($c_id,$arr['rows'],$offset);
 		// 将文章所需的专区表名和用户表名填入数据组中
 		$cate = new CategoryModel();//只需要读专区名
-		$user = new UserModel();//只需要读用户名
-		foreach($data as $k => $v){
-			$a_owner=$user -> get_one($v['a_owner']);
-			$c_name=$cate -> get_one($v['c_id']);
-			$data[$k]['a_owner']=$a_owner['u_name'];
-			$data[$k]['c_name']=$c_name['c_name'];
-		}
+		$c_name=$cate -> get_group($c_id);
+
+		echo '<pre>';
+		var_dump($data);
+		$this -> view -> assign('data',$data);
 
 		// 获取文章个数
-		$totalArts = $art -> get_total($c_id);
+		$res = $art -> get_total($c_id);
+		$arr['totalRows']= $res['c'];
+		$this -> view -> assign('totalArts',$res['c']);
 
 		// 获取点击量最多的文章数据
 		$this -> get_hit($art,10);
@@ -46,10 +56,11 @@ class ArticleController extends Controller{
 		$this -> get_top($art,10);
 		// 获取专区数据
 		$this -> get_menu();
+		// 页码实例化
+		$obj=new Pages($arr);
+		$pages=$obj->page_block();
+		$this -> view -> assign('pages',$pages);
 
-		$this -> view -> assign('totalArts',$totalArts['c']);
-		$this -> view -> assign('data',$data);
-		$this -> view -> assign('c_id',$c_id);
 		$this -> view -> display('index.html');
 	}
 	/**
@@ -91,8 +102,7 @@ class ArticleController extends Controller{
 		$this -> view -> display('show.html');
 	}
 	public function action_addRecord(){
-		echo '<pre>';
-		var_dump($_SESSION );exit;
+
 		$r_id=isset($_GET['a_id'])?$_GET['a_id']:0;
 	}
 	/**

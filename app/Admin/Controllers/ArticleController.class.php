@@ -15,18 +15,24 @@ use app\Admin\Models\ArticleModel;
 use app\Admin\Models\AdminModel;
 use frame\core\AdminController;
 use frame\core\Pages;
+use frame\core\FileUpLoad;
+use frame\core\Thumb;
 
 class ArticleController extends AdminController{
 	/**
 	 * /文章主页模块
 	 * @return flie 文章的index.html模板
 	 */
+	ech
 	public function action_index(){
+
 		// 获取Pages所需要的参数
 		$arr['rows']=$GLOBALS['config']['pages']['rows'];
 		$arr['showPages']=$GLOBALS['config']['pages']['showPages'];
 		// 获取当前页
 		$arr['curPage']=isset($_GET['curPage'])? $this-> input_str($_GET['curPage']) : '1' ;
+		$this -> view -> assign('curPage',$arr['curPage']);
+
 		$arr['path']='index.php?g='.$_GET['g'].'&c='.$_GET['c'].'&a='.$_GET['a'];
 
 		// 实例化article模型
@@ -36,7 +42,6 @@ class ArticleController extends AdminController{
 		$offset=($arr['curPage']-1)*$arr['rows'];
 		// 获取article中的所有数据
 		$data=$art->get_all($offset,$arr['rows']);
-
 		// 将文章所需的专区表名和用户表名填入数据组中
 		$cate = new CategoryModel();//只需要读专区名
 		$admin = new AdminModel();//只需要读用户名
@@ -48,7 +53,8 @@ class ArticleController extends AdminController{
 		}
 
 		// 获取article中总数
-		$arr['totalRows']=count($data);
+		$res = $art -> get_total();
+		$arr['totalRows']= $res['c'];
 
 		// 页码实例化
 		$obj=new Pages($arr);
@@ -66,7 +72,7 @@ class ArticleController extends AdminController{
 	public function action_addui(){
 		// 获取分区详情并添加
 		$cate=new CategoryModel();
-		$data=$cate->get_cate();
+		$data=$cate->get_all();
 		$this -> view -> assign('data',$data);
 		$this -> view -> display('addUi.html');
 	}
@@ -76,15 +82,52 @@ class ArticleController extends AdminController{
 	 * @return int|bool   0|1|false  跳转
 	 */
 	public function action_add(){
-		$file=$_FILES;
-		echo '<pre>';
-		var_dump($GLOBALS['config']['upload']);exit;
+
 		$arr['a_title']=$this -> input_str($_POST['a_title']);
 		$arr['c_id']=$this -> input_str($_POST['c_id']);
 		$arr['a_desc']=$this -> input_str($_POST['a_desc']);
 		$arr['a_content']=$this -> input_str($_POST['a_content']);
+		// 判断是否上传文件
+		if(is_uploaded_file($_FILES['MyFile']['tmp_name'])){
+			$upload=new FileUpLoad();
+			$file=$_FILES['MyFile'];
+			// 获取配置文件中的关于上传图片报错的配置信息
+			$filename =  $upload ->upload($file,$GLOBALS['config']['upload']);
+			// 判断是否上传成功
+			if(!$filename[0]){
+				// 获取配置文件中的关于上传图片报错的配置信息
+				foreach ($GLOBALS['config']['uploadErrorTip'] as $k => $v) {
+					if($filename[1]==$k){
+						$mess=$v;
+					}
+				}
+				$url = 'http://blog.com/index.php?g=admin&c=article&a=index';
+				$second = '3';
+			      	$this -> error($mess,$url,$second);
+			      	exit;
+			}
+			$arr['a_img']=$filename[1];
+			// 获取文件的路径，为缩略图做准备
+			$src = './Upload/images/'.$filename[1];
+
+			// 获取配置文件中的关于缩略图的配置信息
+			// 调用缩略图核心文件
+			$thumb = new Thumb();
+			$res = $thumb -> thumb($src,$GLOBALS['config']['thumb']);
+			if($res){
+				$arr['a_thumb']=$res;
+			}else{
+				$arr['a_thumb']='thumb_default_img.jpeg';
+			}
+		}else{
+			$arr['a_img']='default_img.jpeg';
+			$arr['a_thumb']='thumb_default_img.jpeg';
+		}
+
+		// 调用article模型，实现添加
 		$art=new ArticleModel();
 		$res=$art->add($arr);
+
 		if($res){
 			$mess = '添加成功，正在跳转！！！';
 			$url = 'http://blog.com/index.php?g=admin&c=article&a=index';
@@ -116,9 +159,7 @@ class ArticleController extends AdminController{
 
 		// 获取下拉菜单
 		$cate=new CategoryModel();
-		$arr=$cate->get_cate();
-		// 获取无线级分类
-		$menu=$this -> get_tree($arr);
+		$menu=$cate->get_all();
 
 		$this -> view -> assign('menu',$menu);
 		// 添加文章内容
@@ -129,25 +170,6 @@ class ArticleController extends AdminController{
 		$this -> view -> assign('data',$data);
 
 		$this -> view -> display('modify.html');
-	}
-	/**
-	 * /无限级分类分组
-	 * @param  array  $arr 需要分组遍历的二维数组
-	 * @param  integer $pid [description]
-	 * @param  integer $lv  [description]
-	 * @return [type]       [description]
-	 */
-	public function get_tree($arr,$pid=0,$lv=0){
-		static $tree;
-		// 无限级分类
-		foreach ($arr as $v) {
-			if($v['c_pid']==$pid){
-				$v['lv']=$lv;
-				$tree[]=$v;
-				$this -> get_tree($arr,$v['c_id'],$lv+1);
-			}
-		}
-		return $tree;
 	}
 	public function action_update(){
 		// 获取修改id
@@ -175,6 +197,7 @@ class ArticleController extends AdminController{
 	// 删除文章模块
 	public function action_del(){
 		$id=isset($_GET['id'])? $this-> input_str($_GET['id']) : null ;
+		// 处理从前台获取的id值中，多了一个`,`的问题
 		if($id[strlen($id)-1]==','){
 			$id=substr($id,0,strlen($id)-1);
 		}

@@ -18,6 +18,7 @@ class Pages{
 		self::$totalRows=$arr['totalRows'];
 		self::$showPages=$arr['showPages'];
 		self::$path=$arr['path'];
+
 	}
 
 	public function page_block(){

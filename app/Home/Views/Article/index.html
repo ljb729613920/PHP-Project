@@ -8,6 +8,21 @@
 <link href="/public/home/css/base.css" rel="stylesheet">
 <link href="/public/home/css/style.css" rel="stylesheet">
 <link href="/public/home/css/media.css" rel="stylesheet">
+<style type="text/css">
+	div.page{
+		margin:0px 200px;
+	}
+	#pages li{
+		position:relative;
+		float:left;
+		margin-left:-1px;
+
+/*		padding:6px 12px;
+		line-height:1.42857143;
+		color:#337ab7;text-decoration:none;
+		background-color:#fff;*/
+	}
+</style>
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 <!--[if lt IE 9]>
 <script src="js/modernizr.js"></script>
@@ -16,73 +31,75 @@
 <body>
 <div class="ibody">
 
-  <{include file="../common/menu.html" active=$c_id menu=$menu  }>
+	<{include file="../common/menu.html" active=$c_id menu=$menu  }>
 
-  <article>
-    <h2 class="about_h">您现在的位置是：<a href="/">首页</a>><a href="1/"><{$c_id=$c_id-1}>
-    <{$menu.$c_id.c_name}></a></h2>
-    <div class="bloglist">
-      <{foreach $data as $v}>
-      <div class="newblog">
-        <ul>
-          <h3>
-          <a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title}></a>
-          </h3>
-          <div class="autor">
-          <span>作者：<{$v.a_owner}></span>
-          <span>分类：[<a href="/"><{$v.c_name}></a>]</span>
-          <span>浏览（<a href="/"><{$v.a_hits}></a>）</span>
-          <span>评论（<a href="/"><{$v.a_hits}></a>）</span>
-          </div>
-          <p><{$v.a_desc|truncate:20:'...':true}> <a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>" target="_blank" class="readmore">全文</a></p>
-        </ul>
-        <!-- <figure><img  src="<{constant('DIR_THUMBER')}>/<{$v.a_thumber}>" ></figure> -->
-        <div class="dateview"><{$v.a_last_time|date_format:'Y-m-d H:i:s'}></div>
-      </div>
-      <{/foreach}>
-    </div>
-    <{if $totalArts}>
-    <div class="page"><a title="Total record"><b><{$totalArts}></b></a>
-
-    <b>1</b><a href="/">2</a><a href="/">3</a><a href="/">4</a><a href="/">5</a><a href="/">&gt;</a><a href="/">&gt;&gt;</a>
-    </div>
-    <{/if}>
-  </article>
-  <aside>
-    <div class="rnav">
-      <li class="rnav1 "><a href="/">日记</a></li>
-      <li class="rnav2 "><a href="/">欣赏</a></li>
-      <li class="rnav3 "><a href="/">程序人生</a></li>
-      <li class="rnav4 "><a href="/">经典语录</a></li>
-    </div>
-    <div class="ph_news">
-            <h2>
-        <p>点击排行</p>
-      </h2>
-      <ul class="ph_n">
-      <{$i=1}>
-      <{foreach $hit as $k => $v }>
-        <li><span <{if $k le 2 }>class="num1"<{/if }>><{$i++}> </span><a href="http://blog.com/index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title|truncate:15:'...':true }></a></li>
-      <{/foreach}>
-      </ul>
-      <h2>
-        <p>栏目推荐</p>
-      </h2>
-      <ul>
-        <{foreach $top as $v }>
-        <li><a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title|truncate:15:'...':true }></a></li>
-        <{/foreach}>
-      </ul>
-    </div>
-    <div class="copyright">
-      <ul>
-        <p> Design by <a href="/">Mr.Bigglesworth</a></p>
-      </ul>
-    </div>
-  </aside>
-  <!-- <script src="js/silder.js"></script> -->
-  <div class="clear"></div>
-  <!-- 清除浮动 -->
+	<article>
+		<h2 class="about_h">您现在的位置是：<a href="/">首页</a>><a href="1/">
+		</a></h2>
+		<div class="bloglist">
+			<{foreach $data as $v}>
+			<div class="newblog">
+				<ul>
+					<h3>
+					<a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title}></a>
+					</h3>
+					<div class="autor">
+					<span>作者：<{$v.a_owner}></span>
+					<span>分类：[<a href="/"><{$v.c_name}></a>]</span>
+					<span>浏览（<a href="/"><{$v.a_hits}></a>）</span>
+					<span>评论（<a href="/"><{$v.a_hits}></a>）</span>
+					</div>
+					<p><{$v.a_desc|truncate:20:'...':true}> <a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>" target="_blank" class="readmore">全文</a></p>
+				</ul>
+				<figure><img src="./Upload/thumber/<{$v.a_thumb}>" ></figure>
+				<div class="dateview"><{$v.a_last_time|date_format:'Y-m-d'}></div>
+			</div>
+			<{/foreach}>
+		</div>
+		<{if $totalArts}>
+		<div class="page">
+			<ul id='pages'>
+				<li><a title="Total record"><b><{$totalArts}></b></a></li>
+				<{$pages}>
+			</ul>
+		</div>
+		<{/if}>
+	</article>
+	<aside>
+		<div class="rnav">
+			<li class="rnav1 "><a href="/">日记</a></li>
+			<li class="rnav2 "><a href="/">欣赏</a></li>
+			<li class="rnav3 "><a href="/">程序人生</a></li>
+			<li class="rnav4 "><a href="/">经典语录</a></li>
+		</div>
+		<div class="ph_news">
+						<h2>
+				<p>点击排行</p>
+			</h2>
+			<ul class="ph_n">
+			<{$i=1}>
+			<{foreach $hit as $k => $v }>
+				<li><span <{if $k le 2 }>class="num1"<{/if }>><{$i++}> </span><a href="http://blog.com/index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title|truncate:15:'...':true }></a></li>
+			<{/foreach}>
+			</ul>
+			<h2>
+				<p>栏目推荐</p>
+			</h2>
+			<ul >
+				<{foreach $top as $v }>
+				<li><a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title|truncate:15:'...':true }></a></li>
+				<{/foreach}>
+			</ul>
+		</div>
+		<div class="copyright">
+			<ul>
+				<p> Design by <a href="/">Mr.Bigglesworth</a></p>
+			</ul>
+		</div>
+	</aside>
+	<!-- <script src="js/silder.js"></script> -->
+	<div class="clear"></div>
+	<!-- 清除浮动 -->
 </div>
 </body>
 </html>

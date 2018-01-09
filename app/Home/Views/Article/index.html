@@ -49,7 +49,7 @@
 					<span>浏览（<a href="/"><{$v.a_hits}></a>）</span>
 					<span>评论（<a href="/"><{$v.records}></a>）</span>
 					</div>
-					<p><{$v.a_desc|truncate:20:'...':true}> <a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>" target="_blank" class="readmore">全文</a></p>
+					<p><{$v.a_desc|truncate:100:'...':true}> <a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>" target="_blank" class="readmore">全文</a></p>
 				</ul>
 				<figure><img src="./Upload/thumber/<{$v.a_thumb}>" ></figure>
 				<div class="dateview"><{$v.a_last_time|date_format:'Y-m-d'}></div>
@@ -67,10 +67,10 @@
 	</article>
 	<aside>
 		<div class="rnav">
-			<li class="rnav1 "><a href="/">日记</a></li>
-			<li class="rnav2 "><a href="/">欣赏</a></li>
-			<li class="rnav3 "><a href="/">程序人生</a></li>
-			<li class="rnav4 "><a href="/">经典语录</a></li>
+		<{$i=1}>
+		<{foreach $group as $v}>
+			<li class="rnav<{$i++%4+1}> "><a href="index.php?g=home&c=article&a=index&c_id=<{$v['c_id']}>"><{$v['c_name']}></a></li>
+		<{/foreach}>
 		</div>
 		<div class="ph_news">
 						<h2>

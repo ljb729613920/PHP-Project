@@ -32,15 +32,7 @@ class CategoryModel extends Model{
 		$sql="select c_id,c_pid,c_name from blog_category where c_del=1";
 		$arr=$this->dbh->my_fetchAll($sql);
 
-		$res=$this -> get_tree($arr,$id);
-
-		foreach($arr as $v){
-			if($v['c_id']==$id){
-				$res[]=$v;
-			}
-		}
-		return $res;
-
+		return $this -> get_tree($arr,$id);
 	}
 	/**
 	 * /无线级分类分组

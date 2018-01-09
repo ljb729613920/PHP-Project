@@ -4,6 +4,7 @@
     <div class="logo"><a href="/"></a></div>
     <nav id="topnav">
       <a <{if $active eq 0}> id="topnav_current"<{/if}> href="index.php">首页</a>
+      <!-- <a <{if $active eq about}> id="topnav_current"<{/if}> href="index.php?g=home&c=SinglePage&a=aboutMe">关于我</a> -->
       <{foreach $menu as $v}>
       <a <{if $active eq $v.c_id }> id="topnav_current"<{/if}> href="index.php?g=home&c=Article&a=index&c_id=<{$v.c_id}>"><{$v.c_name}></a>
       <{/foreach}>

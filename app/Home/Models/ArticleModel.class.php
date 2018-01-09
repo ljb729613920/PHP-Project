@@ -72,14 +72,32 @@ class ArticleModel extends Model{
 	}
 	/**
 	 * /获取article表一条数据
-	 * article表:a_id/a_title/a_last_time/a_hits/a_content
+	 * article表:a_id/a_title/a_last_time/a_hits/a_content/c_id
 	 * user表:u_name
 	 * @param  integer $id  获取数据的id
 	 * @return   array|false          返回所查询的数组
 	 */
 	public function get_one($id){
 		// where a.a_id='$id' and a_del='$del'
-		$sql="select a.a_id,a.a_title,a.a_last_time,a.a_hits,a.a_content,u.u_name from blog_article as a join blog_user as u on a.u_owner = u.u_id where a.a_del = 1 and  a.a_id='$id'";
+		$sql="select a.a_id,a.a_title,a.a_last_time,a.a_hits,a.a_content,a.c_id,u.u_name from blog_article as a join blog_user as u on a.u_owner = u.u_id where a.a_del = 1 and  a.a_id='$id'";
 		return $this-> dbh ->my_fetch($sql);
 	}
+	public function get_pre($a_id){
+		$sql="select a_id,a_title from blog_article where a_id<$a_id and a_del =1  order by a_id desc limit 1";
+		return $this -> dbh -> my_fetch($sql);
+	}
+	public function get_next($a_id){
+		$sql="select a_id,a_title from blog_article where a_id>$a_id and a_del =1  order by a_id asc limit 1";
+		return $this -> dbh -> my_fetch($sql);
+	}
+
+	public function get_assocArt($a_id){
+		$sql = "select * from art_art where a_id='$a_id'";
+		$res = $this ->dbh -> my_fetchAll($sql);
+		echo '<pre>';
+		var_dump($res);exit;
+	}
+
+
+
 }

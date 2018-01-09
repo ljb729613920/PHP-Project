@@ -68,7 +68,8 @@ class ArticleModel extends Model{
 		$user=$_SESSION['userInfo']['a_name'];
 		$time=time();
 		$sql="insert into blog_article(a_title,a_owner,a_desc,a_content,c_id,a_create_time,a_last_time,a_img,a_thumb) values('$a_title','$user','$a_desc','$a_content','$c_id','$time','$time','$a_img','$a_thumb')";
-		return $this-> dbh ->my_exec($sql);
+		$this-> dbh ->my_exec($sql);
+		return $this -> dbh -> my_last_id();
 	}
 	/**
 	 * /更新文章内容

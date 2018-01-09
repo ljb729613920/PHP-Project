@@ -13,6 +13,8 @@ namespace app\Admin\Controllers;
 use app\Admin\Models\CategoryModel;
 use app\Admin\Models\ArticleModel;
 use app\Admin\Models\AdminModel;
+use app\Admin\Models\ArtArtModel;
+use app\Admin\Models\TagModel;
 use frame\core\AdminController;
 use frame\core\Pages;
 use frame\core\FileUpLoad;
@@ -23,7 +25,6 @@ class ArticleController extends AdminController{
 	 * /文章主页模块
 	 * @return flie 文章的index.html模板
 	 */
-	ech
 	public function action_index(){
 
 		// 获取Pages所需要的参数
@@ -87,6 +88,8 @@ class ArticleController extends AdminController{
 		$arr['c_id']=$this -> input_str($_POST['c_id']);
 		$arr['a_desc']=$this -> input_str($_POST['a_desc']);
 		$arr['a_content']=$this -> input_str($_POST['a_content']);
+		$tag=$this -> input_str($_POST['tag']);
+
 		// 判断是否上传文件
 		if(is_uploaded_file($_FILES['MyFile']['tmp_name'])){
 			$upload=new FileUpLoad();
@@ -126,9 +129,23 @@ class ArticleController extends AdminController{
 
 		// 调用article模型，实现添加
 		$art=new ArticleModel();
-		$res=$art->add($arr);
+		$return =$art->add($arr);
 
-		if($res){
+		if(!$return){
+			// 写日志
+			exit;
+		}
+		$keyword=new TagModel();
+		$artArt=new ArtArtModel();
+
+		$key = explode('，', $tag);
+		foreach($key as $v){
+			$t_id = $keyword -> store($v);
+			$artArt -> store($t_id,$return);
+		}
+
+
+		if($return){
 			$mess = '添加成功，正在跳转！！！';
 			$url = 'http://blog.com/index.php?g=admin&c=article&a=index';
 			$second = '3';

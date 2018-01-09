@@ -20,9 +20,13 @@ class ArticleController extends Controller{
 		// 通过顶级专区获取其子级专区的id值，与专区名
 		$cate = new CategoryModel();
 		$group=$cate -> get_group($c_id);
-		$a=[];
-		foreach ($group as $v) {
-			$a[]= $v['c_id'];
+		$this -> view -> assign('group',$group);
+
+		$a=["$c_id"];
+		if(isset($group)){
+			foreach ($group as $v) {
+				$a[]= $v['c_id'];
+			}
 		}
 		$groupIds=implode(',',$a);
 
@@ -76,9 +80,20 @@ class ArticleController extends Controller{
 		$a_id=isset($_GET['a_id'])?$_GET['a_id']:0;
 		// 获取具体显示的文章数据
 		$art = new ArticleModel();
+
+		$assocArt= $art -> get_assocArt($a_id);
+
 		$data= $art -> get_one($a_id);
 
 		$this -> view -> assign('data',$data);
+
+		$pre = $art -> get_pre($a_id,$data['c_id']);
+		$this -> view -> assign('pre',$pre);
+
+		$next = $art -> get_next($a_id,$data['c_id']);
+		$this -> view -> assign('next',$next);
+
+
 		// 获取点击量最多的文章数据
 		$this -> get_hit($art,10);
 		// 获取推荐的文章
@@ -89,7 +104,9 @@ class ArticleController extends Controller{
 		// 获取回复数据
 		$obj = new RecordModel();
 		$record=$obj -> get_all($a_id);
-
+		foreach($record as $k => $v){
+			$record[$k]['r_time'] = $this -> time_str($v['r_time']);
+		}
 		$this -> view -> assign('record',$record);
 		// 获取回复的总数
 		$recordNums=count($record);
@@ -98,8 +115,25 @@ class ArticleController extends Controller{
 		$this -> view -> display('show.html');
 	}
 	public function action_addRecord(){
+		$data['u_id']=1;
+		$data['r_a_id']=isset($_POST['a_id'])?$_POST['a_id']:0;
+		$data['r_pid']=isset($_POST['r_pid'])?$_POST['r_pid']:0;
+		$data['r_content']=isset($_POST['r_content'])?$_POST['r_content']:0;
 
-		$r_id=isset($_GET['a_id'])?$_GET['a_id']:0;
+		$record = new RecordModel();
+		$return = $record -> add($data);
+
+		if($return){
+			$mess = '添加成功，正在跳转！！！';
+			$url = 'http://blog.com/index.php?g=home&c=article&a=show&a_id='.$data['r_a_id'];
+			$second = '3';
+		      	$this -> success($mess,$url,$second);
+		}else{
+			$mess = '添加失败，请重新添加！！！';
+			$url = 'http://blog.com/index.php?g=home&c=article&a=show&a_id='.$data['r_a_id'];
+			$second = '3';
+		      	$this -> error($mess,$url,$second);
+		}
 	}
 	/**
 	 * /获取顶级专区数据，可放置在任意位置

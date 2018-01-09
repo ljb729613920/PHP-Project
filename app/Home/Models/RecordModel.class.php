@@ -35,9 +35,16 @@ class RecordModel extends Model{
 	 * @return array         返回一个回复 用户关联的二维数组
 	 */
 	public function get_all($r_a_id){
-		$sql="select r.r_id,r.r_content,r.r_pid,r.r_time,r.r_like,r.r_diss,u.u_id,u.u_nickname,u.u_avatar from blog_record r join blog_user u on r.u_id = u.u_id where r.r_a_id in ($r_a_id) and r.r_del=1";
+		$sql="select r.r_id,r.r_content,r.r_pid,r.r_time,r.r_like,r.r_diss,u.u_id,u.u_nickname,u.u_avatar from blog_record r join blog_user u on r.u_id = u.u_id where r.r_a_id in ($r_a_id) and r.r_del=1 order by r.r_time desc";
 		$arr = $this -> dbh ->my_fetchAll($sql);
 		return $this -> get_tree($arr);
+	}
+
+	public function add($arr){
+		extract($arr);
+		$time=time();
+		$sql="insert into blog_record(u_id,r_content,r_a_id,r_pid,r_time) values('$u_id','$r_content','$r_a_id','$r_pid','$time')";
+		return $this -> dbh ->my_exec($sql);
 	}
 
 }

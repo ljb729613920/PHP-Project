@@ -54,7 +54,7 @@ class Captcha{
 		// 随机添加字符
 		for ($i=0; $i <strlen($this->code) ; $i++) {
 			$color=imagecolorallocate($img,mt_rand(110,200),mt_rand(110,200),mt_rand(110,200));
-			imagettftext($img, mt_rand(25,30)	,mt_rand(-10,10), 14*($i+1), 25, $color, './public/font/times.ttf', $this->code[$i]);
+			imagettftext($img, mt_rand(25,30)	,mt_rand(-10,10), 14*($i+1), 25, $color, 'public/font/times.ttf', $this->code[$i]);
 		}
 		// 随机添加横线
 		for ($i=0; $i <6 ; $i++) {

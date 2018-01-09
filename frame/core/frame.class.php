@@ -25,7 +25,7 @@ class Frame{
 		}
 	}
 	public static function run(){
-		self::create_app();
+		//self::create_app();
 		self::set_char();
 		self::set_error();
 		self::load_config();
@@ -51,9 +51,13 @@ class Frame{
 	}
 	// 解析url参数
 	private static function analyse_url(){
-		$g=isset($_REQUEST['g'])?$_REQUEST['g']:'home';
-		$c=isset($_REQUEST['c'])?$_REQUEST['c']:'index';
-		$a=isset($_REQUEST['a'])?$_REQUEST['a']:'index';
+		//获得请求地址
+		$arr=isset($_SERVER['PATH_INFO']) ? explode('/',$_SERVER['PATH_INFO']) : null ;
+
+		$g= isset($arr[1]) ? $arr[1] : 'home';
+		$c= isset($arr[2]) ? $arr[2] : 'index';
+		$a= isset($arr[3]) ? $arr[3] : 'index';
+
 		// 定义成常量在文件中的别的地方使用
 		// 在本类或者其他类中
 		define('G',$g);
@@ -81,7 +85,8 @@ class Frame{
 		spl_autoload_register([__CLASS__,'load_smarty']);
 	}
 	private static function dispatch(){
-		$controller='app\\'.G.'\\controllers\\'.C.'Controller';
+		$controller='app'.'\\'.G.'\\'.'controllers'.'\\'.C.'Controller';
+
 		$action='action_'.A;
 		$obj=new $controller();
 		$obj->$action();

@@ -95,3 +95,14 @@ r_del char(1) not null default '1' comment '删除状态: 1未删除 0已删除'
 )charset utf8;
 
 insert into blog_record(u_id,r_content,r_a_id,r_time) values(1,'我来组成测试',1,'1515308436');
+
+create table tag(
+t_id int unsigned primary key auto_increment comment '主键',
+t_name varchar(64) unique not null comment '关键词',
+t_flag int unsigned default 0 comment '主键冲突更新此记录'
+)charset utf8;
+
+create table art_art(
+a_id int unsigned comment '查询id',
+t_id int unsigned comment '被查询id'
+)charset utf8;

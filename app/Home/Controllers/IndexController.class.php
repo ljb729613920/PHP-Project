@@ -58,4 +58,11 @@ class IndexController extends Controller{
 		$this-> view ->display('index.html');
 	}
 
+	public function action_loginUi(){
+		$this-> view ->display('login.html');
+	}
+	public function action_regUi(){
+		$this-> view ->display('regUi.html');
+	}
+
 }

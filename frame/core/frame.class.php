@@ -51,18 +51,17 @@ class Frame{
 	}
 	// 解析url参数
 	private static function analyse_url(){
-		//获得请求地址
-		$arr=isset($_SERVER['PATH_INFO']) ? explode('/',$_SERVER['PATH_INFO']) : null ;
 
-		$g= isset($arr[1]) ? $arr[1] : 'home';
-		$c= isset($arr[2]) ? $arr[2] : 'index';
-		$a= isset($arr[3]) ? $arr[3] : 'index';
+		$g= isset($_GET['g']) ? $_GET['g'] : 'home';
+		$c= isset($_GET['c']) ? $_GET['c'] : 'index';
+		$a= isset($_GET['a']) ? $_GET['a'] : 'index';
 
 		// 定义成常量在文件中的别的地方使用
 		// 在本类或者其他类中
 		define('G',$g);
 		define('C',$c);
 		define('A',$a);
+
 	}
 	private static function set_dir(){
 		// 定义项目目录常量

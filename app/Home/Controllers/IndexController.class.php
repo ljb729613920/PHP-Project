@@ -1,12 +1,12 @@
 <?php
 namespace app\home\controllers;
 
-use frame\core\Controller;
+
 use app\home\models\ArticleModel;
 use app\home\models\CategoryModel;
 use app\home\models\RecordModel;
 
-class IndexController extends Controller{
+class IndexController extends CommonController{
 	/**
 	 * /获取所有推荐的文章
 	 * 调用ArticleModel里面get_top()、get_new()方法
@@ -51,9 +51,9 @@ class IndexController extends Controller{
 		$news = $art -> get_new($limit);
 		$this-> view ->assign('news',$news);
 		// 获取导航菜单数据
-		$cate = new CategoryModel();
-		$menu = $cate -> get_cate_top();
-		$this -> view -> assign('menu',$menu);
+		// $cate = new CategoryModel();
+		// $menu = $cate -> get_cate_top();
+		// $this -> view -> assign('menu',$menu);
 
 		$this-> view ->display('index.html');
 	}

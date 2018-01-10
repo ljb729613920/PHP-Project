@@ -71,9 +71,10 @@
 </head>
 <body>
 <div class="ibody">
- <{include file="../common/menu.html" active='2'}>
+ <{include file="../common/menu.html" active=$data.c_id}>
   <article>
-    <h2 class="about_h">您现在的位置是：<a href="/">首页</a>><a href="1/">模板分享</a>><a href="1/">个人博客模板</a></h2>
+    <h2 class="about_h">您现在的位置是：<a href="index.php?g=home&c=index&a=index">首页</a><{foreach $locations as $v}>》<a href="index.php?g=home&c=article&a=index&c_id=<{$v.c_id}>"><{$v.c_name}></a><{/foreach}></h2>
+
     <div class="index_about">
       <h2 class="c_titile"><{$data.a_title}></h2>
       <p class="box_c"><span class="d_time">发布时间：<{$data.a_last_time|date_format:'Y-m-d H:i:s'}></span>
@@ -84,7 +85,7 @@
        <{$data.a_content}>
       </ul>
       <div class="keybq">
-        <p><span>关键字词</span>：黑色,个人博客,时间轴,响应式</p>
+        <p><span>关键字词</span>： <{if isset($tag)}><{$tag}><{else}>无<{/if}></p>
       </div>
       <div class="nextinfo">
       <{nocache}>
@@ -103,12 +104,13 @@
       <div class="otherlink">
         <h2>相关文章</h2>
         <ul>
-          <li><a href="/news/s/2013-07-25/524.html" title="现在，我相信爱情！">现在，我相信爱情！</a></li>
-          <li><a href="/newstalk/mood/2013-07-24/518.html" title="我希望我的爱情是这样的">我希望我的爱情是这样的</a></li>
-          <li><a href="/newstalk/mood/2013-07-02/335.html" title="有种情谊，不是爱情，也算不得友情">有种情谊，不是爱情，也算不得友情</a></li>
-          <li><a href="/newstalk/mood/2013-07-01/329.html" title="世上最美好的爱情">世上最美好的爱情</a></li>
-          <li><a href="/news/read/2013-06-11/213.html" title="爱情没有永远，地老天荒也走不完">爱情没有永远，地老天荒也走不完</a></li>
-          <li><a href="/news/s/2013-06-06/24.html" title="爱情的背叛者">爱情的背叛者</a></li>
+         <{if isset($assocArt)}>
+        <{foreach $assocArt as $v}>
+          <li><a href="index.php?c=article&a=show&a_id=<{$v.a_id}>" title="<{$v.a_title}>"><{$v.a_title|truncate:20:'...':true}></a></li>
+        <{/foreach}>
+        <{else}>
+          <li>世间罕见的文章，并无相关</li>
+        <{/if}>
         </ul>
       </div>
 
@@ -118,6 +120,7 @@
       </div>
          <ul class="pl_n">
             <{nocache}>
+            <{if isset($record)}>
                 <{foreach $record as $v}>
                     <dl>
                         <dt><img  src="<{$v['u_avatar']}>"></dt>
@@ -135,6 +138,12 @@
                         </dd>
                     </dl>
                 <{/foreach}>
+                <{else}>
+                  <dl>
+                          <dt>&nbsp;</dt>
+
+                  </dl>并没有小伙伴搭理你呦！
+                <{/if}>
             <{/nocache}>
         </ul>
 
@@ -153,7 +162,7 @@
         <form action="index.php?g=home&c=Article&a=addRecord" method="post">
         <input type='hidden' name='userid' value="<{$smarty.session.user.id|default:0}>" />
         <input type='hidden' name='a_id' value="<{$data.a_id}>" />
-        <input type='hidden' name='r_pid' value="<{$data.a_id}>" />
+        <input type='hidden' name='r_pid' value="0" />
 
         <textarea placeholder="说点什么吧…" title="Ctrl+Enter快捷提交" name="r_content"></textarea><pre class="ds-hidden-text"></pre>
     </div>
@@ -173,10 +182,10 @@
 
   <aside>
     <div class="rnav">
-      <li class="rnav1 "><a href="/">日记</a></li>
-      <li class="rnav2 "><a href="/">欣赏</a></li>
-      <li class="rnav3 "><a href="/">程序人生</a></li>
-      <li class="rnav4 "><a href="/">经典语录</a></li>
+     <{$i=1}>
+      <{foreach $group as $v}>
+        <li class="rnav<{$i++%4+1}> "><a href="index.php?g=home&c=article&a=index&c_id=<{$v['c_id']}>"><{$v['c_name']}></a></li>
+      <{/foreach}>
     </div>
     <div class="ph_news">
       <h2>
@@ -196,63 +205,10 @@
         <li><a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title|truncate:15:'...':true }></a></li>
         <{/foreach}>
       </ul>
-      <h2>
-        <p>最新评论</p>
-      </h2>
-      <ul class="pl_n">
-        <dl>
-          <dt><img  src="/public/home/images/s8.jpg"> </dt>
-          <dt> </dt>
-          <dd>DanceSmile
-            <time>49分钟前</time>
-          </dd>
-          <dd><a href="/">文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</a></dd>
-        </dl>
-        <dl>
-          <dt><img  src="/public/home/images/s7.jpg"> </dt>
-          <dt> </dt>
-          <dd>yisa
-            <time>2小时前</time>
-          </dd>
-          <dd><a href="/">我手机里面也有这样一个号码存在</a></dd>
-        </dl>
-        <dl>
-          <dt><img  src="/public/home/images/s6.jpg"> </dt>
-          <dt> </dt>
-          <dd>小林博客
-            <time>8月7日</time>
-          </dd>
-          <dd><a href="/">博客色彩丰富，很是好看</a></dd>
-        </dl>
-        <dl>
-          <dt><img  src="/public/home/images/003.jpg"> </dt>
-          <dt> </dt>
-          <dd>DanceSmile
-            <time>49分钟前</time>
-          </dd>
-          <dd><a href="/">文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</a></dd>
-        </dl>
-        <dl>
-          <dt><img  src="/public/home/images/002.jpg"> </dt>
-          <dt> </dt>
-          <dd>yisa
-            <time>2小时前</time>
-          </dd>
-          <dd><a href="/">我手机里面也有这样一个号码存在</a></dd>
-        </dl>
-      </ul>
-      <h2>
-        <p>最近访客</p>
-        <ul>
-          <img  src="/public/home/images/vis.jpg"><!-- 直接使用“多说”插件的调用代码 -->
-        </ul>
-      </h2>
-    </div>
+
     <div class="copyright">
       <ul>
-        <p> Design by <a href="/">DanceSmile</a></p>
-        <p>蜀ICP备11002373号-1</p>
-        </p>
+        <p> Design by <a href="/">Mr.Bigglesworth</a></p>
       </ul>
     </div>
   </aside>

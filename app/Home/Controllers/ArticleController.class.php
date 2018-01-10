@@ -2,13 +2,13 @@
 namespace app\home\controllers;
 
 use frame\core\Pages;
-use frame\core\Controller;
 use app\home\models\ArticleModel;
 use app\home\models\CategoryModel;
 use app\home\models\UserModel;
 use app\home\models\RecordModel;
+use app\home\models\ArtArtModel;
 
-class ArticleController extends Controller{
+class ArticleController extends CommonController{
 	/**
 	 * /前台文章模块的主页
 	 * @return [type] [description]
@@ -19,9 +19,11 @@ class ArticleController extends Controller{
 		$this -> view -> assign('c_id',$c_id);
 		// 通过顶级专区获取其子级专区的id值，与专区名
 		$cate = new CategoryModel();
-		$group=$cate -> get_group($c_id);
+		$group = $cate -> get_group($c_id);
+
 		$this -> view -> assign('group',$group);
 
+		// 获取一个所有专区及其子专区的 string型的值
 		$a=["$c_id"];
 		if(isset($group)){
 			foreach ($group as $v) {
@@ -63,7 +65,7 @@ class ArticleController extends Controller{
 		// 获取推荐的文章
 		$this -> get_top($art,10);
 		// 获取专区数据
-		$this -> get_menu();
+		// $this -> get_menu($cate);
 		// 页码实例化
 		$obj=new Pages($arr);
 		$pages=$obj->page_block();
@@ -80,39 +82,67 @@ class ArticleController extends Controller{
 		$a_id=isset($_GET['a_id'])?$_GET['a_id']:0;
 		// 获取具体显示的文章数据
 		$art = new ArticleModel();
-
-		$assocArt= $art -> get_assocArt($a_id);
-
 		$data= $art -> get_one($a_id);
-
 		$this -> view -> assign('data',$data);
 
+		// 获取上一篇文章
 		$pre = $art -> get_pre($a_id,$data['c_id']);
-		$this -> view -> assign('pre',$pre);
 
+		$this -> view -> assign('pre',$pre);
+		// 获取下一篇文章
 		$next = $art -> get_next($a_id,$data['c_id']);
 		$this -> view -> assign('next',$next);
-
-
+		// 获取关联文章
+		$this -> get_assoc($a_id);
 		// 获取点击量最多的文章数据
 		$this -> get_hit($art,10);
 		// 获取推荐的文章
 		$this -> get_top($art,10);
+
+		$cate = new CategoryModel();
 		// 获取专区数据
-		$this -> get_menu();
+		// $this -> get_menu($cate);
+		// 通过顶级专区获取其子级专区的id值，与专区名
+		$group = $cate -> get_group($data['c_id']);
+		$this -> view -> assign('group',$group);
+
+		// 位置栏数据,通过上文的$data['c_id']获取显示页面的专区，反推所有父级
+		$locations = $cate -> get_location($data['c_id']);
+
+		$this -> view -> assign('locations',$locations);
 
 		// 获取回复数据
 		$obj = new RecordModel();
 		$record=$obj -> get_all($a_id);
-		foreach($record as $k => $v){
-			$record[$k]['r_time'] = $this -> time_str($v['r_time']);
+		if(isset($record)){
+			foreach($record as $k => $v){
+				$record[$k]['r_time'] = $this -> time_str($v['r_time']);
+			}
+			$this -> view -> assign('record',$record);
 		}
-		$this -> view -> assign('record',$record);
+
 		// 获取回复的总数
 		$recordNums=count($record);
+
 		$this -> view -> assign('recordNums',$recordNums);
 
 		$this -> view -> display('show.html');
+	}
+	public function get_assoc($a_id){
+		$aa = new ArtArtModel();
+		$res = $aa -> get_tag($a_id);
+		if(isset($res[0])){
+			foreach ($res as $v) {
+				$id[]= $v['t_id'];
+				$tag[] = $v['t_name'];
+			}
+			$tag = implode(',',$tag);
+			$this -> view -> assign('tag',$tag);
+
+			$id = implode(',',$id);
+			$assocArt= $aa -> get_assocArt($a_id,$id);
+			$this -> view -> assign('assocArt',$assocArt);
+		}
 	}
 	public function action_addRecord(){
 		$data['u_id']=1;
@@ -140,12 +170,12 @@ class ArticleController extends Controller{
 	 * @return object 返回给页面一组顶级专区的数据
 	 *         	array  二维数组名为menu
 	 */
-	public function get_menu(){
-		// 获取专区数据
-		$cate = new CategoryModel();
-		$menu = $cate -> get_cate_top();
-		return $this -> view -> assign('menu',$menu);
-	}
+	// public function get_menu($cate){
+	// 	// 获取专区数据
+	// 	$menu = $cate -> get_cate_top();
+	// 	return $this -> view -> assign('menu',$menu);
+	// }
+
 	/**
 	 * /获取点击量最多的文章
 	 * @param  object  	$obj   	实例化articleModel对象

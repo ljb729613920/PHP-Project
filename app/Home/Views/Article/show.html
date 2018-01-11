@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>个人博客</title>
+<meta name="keywords" content="个人博客模板,博客模板,响应式" />
+<meta name="description" content="比格沃斯先生的个人博客模板" />
+<link href="./public/home/css/base.css" rel="stylesheet">
+<link href="./public/home/css/style.css" rel="stylesheet">
+<link href="./public/home/css/media.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+<style type="text/css">
+   .ds-replybox img {
+    float:left;
+    width:76px;
+    height:76px;
+  }
+  textarea {
+    box-shadow: none;
+    color: #999;
+    height: 54px;
+    margin: 0;
+    overflow: auto;
+    padding: 10px;
+    resize: none;
+    width: 80%;
+    margin-left:10px;
+  }
+  button {
+    margin-top:10px;
+    margin-left:85px;
+    font-size: 14px;
+    font-weight: bold;
+    height: 32px;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    transition: all 0.15s linear 0s;
+    width: 100px;
+  }
+  .otherlink dl {
+    display:block;
+    width:100%;
+    height:65px;
+    padding:20px 0;
+    border-bottom:1px #DEDEDE solid;
+  }
+  .otherlink dt {
+    float:left;
+  }
+  .otherlink h3 {
+    color:#D23;
+  }
+  .otherlink h3,.otherlink p {
+    line-height:22px;
+    text-indent:10px;
+  }
+  .otherlink .msg {
+     color:#333;
+  }
+  .otherlink .addtime {
+     color:#999;
+  }
+  .logform input {
+    width:140px;
+    height:30px;
+  }
+</style>
+</head>
+<body>
+<div class="ibody">
+ <{include file="../common/menu.html" active=$data.c_id}>
+  <article>
+    <h2 class="about_h">您现在的位置是：<a href="index.php?g=home&c=index&a=index">首页</a><{foreach $locations as $v}>》<a href="index.php?g=home&c=article&a=index&c_id=<{$v.c_id}>"><{$v.c_name}></a><{/foreach}></h2>
+
+    <div class="index_about">
+      <h2 class="c_titile"><{$data.a_title}></h2>
+      <p class="box_c"><span class="d_time">发布时间：<{$data.a_last_time|date_format:'Y-m-d H:i:s'}></span>
+      <span>编辑：<{$data.u_name}></span>
+      <span>浏览（<{nocache}><{$data.a_hits}>）</span>
+      <span>评论览（<{$recordNums}>）<{/nocache}></span></p>
+      <ul class="infos">
+       <{$data.a_content}>
+      </ul>
+      <div class="keybq">
+        <p><span>关键字词</span>： <{if isset($tag)}><{$tag}><{else}>无<{/if}></p>
+      </div>
+      <div class="nextinfo">
+      <{nocache}>
+        <{if $pre==false}>
+        <p>上一篇：没有了</p>
+        <{else}>
+        <p>上一篇：<a href="index.php?c=article&a=show&a_id=<{$pre.a_id}>"><{$pre.a_title}></a></p>
+        <{/if}>
+        <{if $next==false}>
+        <p>下一篇：没有了</p>
+        <{else}>
+        <p>下一篇：<a href="index.php?c=article&a=show&a_id=<{$next.a_id}>"><{$next.a_title}></a></p>
+        <{/if}>
+        <{/nocache}>
+      </div>
+      <div class="otherlink">
+        <h2>相关文章</h2>
+        <ul>
+         <{if isset($assocArt)}>
+        <{foreach $assocArt as $v}>
+          <li><a href="index.php?c=article&a=show&a_id=<{$v.a_id}>" title="<{$v.a_title}>"><{$v.a_title|truncate:20:'...':true}></a></li>
+        <{/foreach}>
+        <{else}>
+          <li>世间罕见的文章，并无相关</li>
+        <{/if}>
+        </ul>
+      </div>
+
+    <div style="clear:both; height:10px;"></div>
+      <div class="otherlink">
+      <h2>评论列表</h2>
+      </div>
+         <ul class="pl_n">
+            <{nocache}>
+            <{if isset($record)}>
+                <{foreach $record as $v}>
+                    <dl>
+                        <dt><img  src="<{$v['u_avatar']}>"></dt>
+                        <dd>&nbsp;</dd>
+                        <dd>
+                            <time><{$v['u_nickname']}>：</time><{$v['r_content']}>
+                            <time> <{$v['r_time']}></time><span id="rec">回复</span>
+                            <div id="rec-block"></div>
+                            <script type="text/javascript">
+                                    rec.onclick=fucntion(){
+                                          var obj = document.getElementById('rec-block');
+                                          obj.innerHTML="";
+                                    }
+                            </script>
+                        </dd>
+                    </dl>
+                <{/foreach}>
+                <{else}>
+                  <dl>
+                          <dt>&nbsp;</dt>
+
+                  </dl>并没有小伙伴搭理你呦！
+                <{/if}>
+            <{/nocache}>
+        </ul>
+
+    <div style="clear:both; height:10px;"></div>
+     <div class="otherlink">
+        <h2>发布评论</h2>
+      </div>
+
+
+
+
+
+    <div style="clear:both; height:10px;"></div>
+
+    <div class="ds-replybox">
+        <form action="index.php?g=home&c=Article&a=addRecord" method="post">
+        <input type='hidden' name='userid' value="<{$smarty.session.user.id|default:0}>" />
+        <input type='hidden' name='a_id' value="<{$data.a_id}>" />
+        <input type='hidden' name='r_pid' value="0" />
+
+        <textarea placeholder="说点什么吧…" title="Ctrl+Enter快捷提交" name="r_content"></textarea><pre class="ds-hidden-text"></pre>
+    </div>
+        <div class="ds-post-toolbar">
+        <div class="ds-post-options ds-gradient-bg"><span class="ds-sync"></span>
+        </div>
+        <button type="submit" class="ds-post-button">发布</button>
+        <div class="ds-toolbar-buttons"><a title="插入表情" class="ds-toolbar-button ds-add-emote"></a>
+        </div>
+        </div>
+
+
+        </form>
+      </div>
+  </article>
+
+
+  <aside>
+    <div class="rnav">
+     <{$i=1}>
+      <{foreach $group as $v}>
+        <li class="rnav<{$i++%4+1}> "><a href="index.php?g=home&c=article&a=index&c_id=<{$v['c_id']}>"><{$v['c_name']}></a></li>
+      <{/foreach}>
+    </div>
+    <div class="ph_news">
+      <h2>
+        <p>点击排行</p>
+      </h2>
+      <ul class="ph_n">
+      <{$i=1}>
+      <{foreach $hit as $k => $v }>
+        <li><span <{if $k le 2 }>class="num1"<{/if }>><{$i++}> </span><a href="http://blog.com/index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title|truncate:15:'...':true }></a></li>
+      <{/foreach}>
+      </ul>
+      <h2>
+        <p>栏目推荐</p>
+      </h2>
+      <ul>
+        <{foreach $top as $v }>
+        <li><a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title|truncate:15:'...':true }></a></li>
+        <{/foreach}>
+      </ul>
+
+    <div class="copyright">
+      <ul>
+        <p> Design by <a href="/">Mr.Bigglesworth</a></p>
+      </ul>
+    </div>
+  </aside>
+  <script src="js/silder.js"></script>
+  <div class="clear"></div>
+  <!-- 清除浮动 -->
+</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>个人博客</title>
+<meta name="keywords" content="个人博客模板,博客模板,响应式" />
+<meta name="description" content="比格沃斯先生的个人博客模板" />
+<link href="./public/home/css/base.css" rel="stylesheet">
+<link href="./public/home/css/index.css" rel="stylesheet">
+<link href="./public/home/css/media.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="ibody">
+
+  <{include file="../common/menu.html" active="0" menu=$menu}>
+
+  <article>
+    <div class="banner">
+      <ul class="texts">
+        <p>freedom heart</p>
+        <p>流氓气质，诗人情怀，浪子之心，不羁一生</p>
+      </ul>
+    </div>
+    <div class="bloglist">
+      <h2>
+        <p><span>推荐</span>文章</p>
+      </h2>
+      <{nocache}>
+      <{foreach $data as $v}>
+      <div class="blogs">
+        <h3><a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title}></a></h3>
+        <figure>
+        <!-- <img src="<{constant('DIR_THUMBER')}>/<{$v.a_thumber}>" ></figure> -->
+        <ul>
+          <p><{$v.a_desc|truncate:20:'...'}></p>
+          <a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>" target="_blank" class="readmore">阅读全文&gt;&gt;</a>
+        </ul>
+        <p class="autor">
+        <span >作者：<{$v.a_owner}></span> </p><br/>
+        <span >分类：【<a href="/"><{$v.c_name}></a>】</span><br/>
+        <span >浏览（<a href="/"><{$v.a_hits}></a>）</span><br/>
+        <span >评论（<a href="/"><{$v.a_content}></a>）</span>
+
+        <div class="dateview"><{$v.a_create_time|date_format:'Y-m-d H:i:s'}>
+        </div>
+      </div>
+      <{/foreach}>
+      <{/nocache}>
+    </div>
+  </article>
+  <aside>
+    <div class="avatar"><a href="about.html"><span>关于杨青</span></a></div>
+    <div class="topspaceinfo">
+      <h1>执子之手，与子偕老</h1>
+      <p>于千万人之中，我遇见了我所遇见的人....</p>
+    </div>
+    <div class="about_c">
+      <p>网名：Mr.Bigglesworth | 哞哞儿</p>
+      <p>职业：Web开发攻城狮 </p>
+      <p>籍贯：广东省-深圳市</p>
+      <p>电话：186-XXXX-XXXX</p>
+      <p>邮箱：liujiabin1212@outlook.com</p>
+    </div>
+  <!--   <div class="bdsharebuttonbox"><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more" data-cmd="more"></a></div> -->
+    <div class="tj_news">
+      <h2>
+        <p class="tj_t1">最新文章</p>
+      </h2>
+      <ul>
+        <{foreach $news as $v }>
+        <li><a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title|truncate:15:'...':true }></a></li>
+        <{/foreach}>
+      </ul>
+      <h2>
+        <p class="tj_t2">推荐文章</p>
+      </h2>
+      <ul>
+
+        <{foreach $data as $v }>
+        <li><a href="index.php?g=home&c=article&a=show&a_id=<{$v.a_id}>"><{$v.a_title|truncate:15:'...':true }></a></li>
+        <{/foreach}>
+
+      </ul>
+    </div>
+    <div class="links">
+      <h2>
+        <p>友情链接</p>
+      </h2>
+      <ul>
+        <li><a href="/">刘佳彬个人博客</a></li>
+
+      </ul>
+    </div>
+    <div class="copyright">
+      <ul>
+        <p> Design by <a href="/">Mr.Bigglesworth</a></p>
+        <p></p>
+        </p>
+      </ul>
+    </div>
+  </aside>
+  <!-- <script src="./public/home/js/silder.js"></script> -->
+  <div class="clear"></div>
+  <!-- 清除浮动 -->
+</div>
+</body>
+</html>

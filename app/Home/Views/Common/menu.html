@@ -1,0 +1,12 @@
+<header>
+    <h1>比格沃斯先生</h1>
+    <h2>影子是一个会撒谎的精灵，它在虚空中流浪和等待被发现之间;在存在与不存在之间....</h2>
+    <div class="logo"><a href="/"></a></div>
+    <nav id="topnav">
+      <a <{if $active eq 0}> id="topnav_current"<{/if}> href="index.php">首页</a>
+      <!-- <a <{if $active eq about}> id="topnav_current"<{/if}> href="index.php?g=home&c=SinglePage&a=aboutMe">关于我</a> -->
+      <{foreach $menu as $v}>
+      <a <{if in_array($active,$v.ids) }> id="topnav_current"<{/if}> href="index.php?g=home&c=Article&a=index&c_id=<{$v.c_id}>"><{$v.c_name}></a>
+      <{/foreach}>
+    </nav>
+</header>

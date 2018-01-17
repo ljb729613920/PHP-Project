@@ -1,10 +1,10 @@
 # blog
 自组简单的MVC框架，实现前台后台的基本操作
 
-project  应用部署目录
+# project  应用部署目录
 ├─public           	    公共资源目录
 │  ├─admin             	后台模块资源目录
-│  ├─bootstrap          bootstrap模块资源目录
+│  ├─bootstrap          bootstrap模块资源目录 
 │  ├─font             	字体资源目录
 │  ├─home             	前台模块资源目录
 │  ├─ueditor            在线编辑器目录

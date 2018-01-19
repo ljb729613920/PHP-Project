@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>用户登录</title>
+		<meta charset="UTF-8">
+   	<link rel="stylesheet" type="text/css" href="./public/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./public/css/bootstrap-responsive.min.css" />
+    <style type="text/css">
+        body {
+            padding-top: 140px;
+            padding-bottom: 40px;
+            height:450px;
+            background-color: #333366;
+            background-image: url('./public/assets/img/background.png');
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .form-signin {
+            max-width: 300px;
+            padding: 19px 29px 29px;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+        }
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+        .form-signin input[type="text"],
+        .form-signin input[type="password"] {
+            font-size: 16px;
+            height: auto;
+            margin-bottom: 15px;
+            padding: 7px 9px;
+        }
+    </style>
+</head>
+<body>
+    <form action="./Model/login.php" method="post">
+
+        <div class="form-signin">
+        <div style="text-align: center">
+            <h3 class="form-signin-heading">王者荣耀论坛管理系统</h3>
+
+    	        <input type="text" name="userName" class="input-block-level" placeholder="请输入账号">
+    	        <input type="password" name="userPass" class="input-block-level" placeholder="请输入密码">
+         </div>
+         <div>
+                     <span ><input type="text" name="captcha" id="" style="width:145px" placeholder="验证码"></span>
+                      <span ><img src="./model/captcha.php" id="captcha" style="margin-top: -15px" onclick="this.src='./model/captcha.php?'+Math.random(0,1);"></span>
+        </div>
+        <div style="text-align:right">
+                   <span >
+                   <input type="radio" value="0" name='loginType' checked>用户登录
+                   </span>
+                    <span>
+                    <input type="radio" value="1" name='loginType'>管理员登录
+                    </span> <br>
+        <span style="align:left;">
+                        <input type="checkbox" name="remerber" id=""  value="remerber">七天免登陆</span>
+        </div>
+         <div style="text-align: center">
+    	        <button class="btn btn-large btn-primary" id="submitBtn" type="submit"
+    				onclick="location='后台-首页.html'"  style="width:250px;margin-top:10px">登录</button><br/>
+        </div>
+        </div>
+
+    </form>
+</body>
+</html>

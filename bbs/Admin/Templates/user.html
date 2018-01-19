@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>用户管理</title>
+	    <meta charset="UTF-8">
+		<link href="../public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	    <link rel="stylesheet" type="text/css" href="../public/css/bootstrap.min.css" />
+	    <link rel="stylesheet" type="text/css" href="../public/css/bootstrap-responsive.min.css" />
+	    <link rel="stylesheet" type="text/css" href="../public/css/style.css" />
+	    <script type="text/javascript" src="../public/js/jquery.min.js"></script>
+	</head>
+	<body>
+		<form class="form-inline definewidth m20" action="" method="post">
+			用户名：<input name="userName" class="abc input-default" value=""></input>&nbsp;&nbsp;
+			<button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp;
+		</form>
+		<table class="table table-bordered table-hover definewidth m10">
+		    <thead>
+			    <tr>
+			        <th>编号</th>
+			        <th>用户名</th>
+			        <th>昵称</th>
+			        <th>邮箱</th>
+			        <th>头像</th>
+			        <th>角色</th>
+			        <th>登录状态</th>
+			        <th>最后登录时间</th>
+			        <th>发言状态</th>
+			        <th style="text-align:center;">操作</th>
+			    </tr>
+		    </thead>
+		    <?php $i=0;foreach($arr as $v){?>
+			<tr >
+				<td ><?php echo ++$i?></td>
+				<td ><?php echo $v['username']?></td>
+				<td ><?php echo $v['nickname']?></td>
+				<td ><?php echo $v['email']?></td>
+				<td ><?php echo $v['profile']?></td>
+				<td ><?php echo $v['role']? '管理员' : '普通用户' ?></td>
+				<td ><?php echo '?登录ing?'?></td>
+				<td ><?php echo date('Y/m/d H:i:s',$v['last_login_time'])?></td>
+				<td style="text-align:center;"><?php echo $v['allowed']? '<font color="green">正常</font>':'<font color="red">已屏蔽</font>';?></td>
+				<td style="text-align:center;">
+						<a href="allowed.php?id=<?php echo $v['id']?>"><?php echo $v['allowed']? '禁言' : '解除'?></a>
+				</td>
+			</tr>
+			<?php }?>
+			<tr>
+				<td colspan="8">
+					<ul class="pagination" id='pagination'>
+						<?php echo pageBlock($curPage,$rows,7,$totalRows,'userinfo.php')?>
+					</ul>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

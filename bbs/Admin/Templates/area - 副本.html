@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <title>用户管理</title>
+	    <meta charset="UTF-8">
+	    	<link href="../public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	    <link rel="stylesheet" type="text/css" href="../public/css/bootstrap.min.css" />
+	    <link rel="stylesheet" type="text/css" href="../public/css/bootstrap-responsive.min.css" />
+	    <link rel="stylesheet" type="text/css" href="../public/css/style.css" />
+	    <script type="text/javascript" src="../public/js/jquery.min.js"></script>
+	</head>
+	<body>
+		<form class="form-inline definewidth m20" action="" method="post">
+			用户名：<input name="userName" class="abc input-default" value=""></input>&nbsp;&nbsp;
+			<button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp;
+		</form>a
+		<table class="table table-bordered table-hover definewidth m10">
+		    <thead>
+			    <tr>
+			        <th>编号</th>
+			        <th>专区名</th>
+			        <th>权限</th>
+			        <th>发帖数</th>
+			        <th>访问量</th>
+			        <th>创建时间</th>
+			        <th style="text-align:center;">操作</th>
+			    </tr>
+		    </thead>
+		    <?php $i=0;foreach($area as $v){?>
+			<tr >
+				<td ><?php echo ++$i?></td>
+				<td ><?php echo $v['name']?></td>
+				<td ><?php echo $v['role']? '仅限管理员' : '所有用户'?></td>
+				<td ><?php echo '100'?></td>
+				<td style="text-align:center;"><?php echo '200'?></td>
+				<td ><?php echo date('Y/m/d H:i:s',$v['time'])?></td>
+				<td style="text-align:center;">
+						<a href="areadel.php?id=<?php echo $v['id']?>">删除</a> |
+						<a href="allowed.php?id=<?php echo $v['id']?>">查看详情</a>
+				</td>
+			</tr>
+
+			<?php }?>
+				<tr>
+				<td colspan="8">
+					<ul class="pagination" id='pagination'>
+						<?php echo pageBlock($curPage,$rows,7,$totalRows,'area.php')?>
+					</ul>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
